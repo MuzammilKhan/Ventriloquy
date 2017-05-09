@@ -1,0 +1,760 @@
+{
+ "results": [
+  {
+   "word_alternatives": [
+    {
+     "start_time": 2.03,
+     "alternatives": [
+      {
+       "confidence": 0.9964,
+       "word": "after"
+      }
+     ],
+     "end_time": 2.31
+    },
+    {
+     "start_time": 2.31,
+     "alternatives": [
+      {
+       "confidence": 0.9997,
+       "word": "the"
+      }
+     ],
+     "end_time": 2.39
+    },
+    {
+     "start_time": 2.39,
+     "alternatives": [
+      {
+       "confidence": 1,
+       "word": "worst"
+      }
+     ],
+     "end_time": 2.7
+    },
+    {
+     "start_time": 2.7,
+     "alternatives": [
+      {
+       "confidence": 0.9986,
+       "word": "recession"
+      }
+     ],
+     "end_time": 3.18
+    },
+    {
+     "start_time": 3.18,
+     "alternatives": [
+      {
+       "confidence": 0.5692,
+       "word": "of"
+      },
+      {
+       "confidence": 0.2487,
+       "word": "at"
+      },
+      {
+       "confidence": 0.1056,
+       "word": "in"
+      },
+      {
+       "confidence": 0.0323,
+       "word": "it"
+      },
+      {
+       "confidence": 0.0165,
+       "word": "and"
+      }
+     ],
+     "end_time": 3.29
+    },
+    {
+     "start_time": 3.29,
+     "alternatives": [
+      {
+       "confidence": 1,
+       "word": "eighty"
+      }
+     ],
+     "end_time": 3.56
+    },
+    {
+     "start_time": 3.56,
+     "alternatives": [
+      {
+       "confidence": 0.9899,
+       "word": "years"
+      }
+     ],
+     "end_time": 4.03
+    },
+    {
+     "start_time": 4.06,
+     "alternatives": [
+      {
+       "confidence": 0.967,
+       "word": "we"
+      },
+      {
+       "confidence": 0.0283,
+       "word": "we've"
+      }
+     ],
+     "end_time": 4.21
+    },
+    {
+     "start_time": 4.21,
+     "alternatives": [
+      {
+       "confidence": 0.9159,
+       "word": "fought"
+      },
+      {
+       "confidence": 0.0614,
+       "word": "found"
+      },
+      {
+       "confidence": 0.0192,
+       "word": "find"
+      }
+     ],
+     "end_time": 4.57
+    },
+    {
+     "start_time": 4.57,
+     "alternatives": [
+      {
+       "confidence": 0.9959,
+       "word": "our"
+      }
+     ],
+     "end_time": 4.73
+    },
+    {
+     "start_time": 4.73,
+     "alternatives": [
+      {
+       "confidence": 0.9958,
+       "word": "way"
+      }
+     ],
+     "end_time": 4.9
+    },
+    {
+     "start_time": 4.9,
+     "alternatives": [
+      {
+       "confidence": 0.9988,
+       "word": "back"
+      }
+     ],
+     "end_time": 5.19
+    },
+    {
+     "start_time": 5.78,
+     "alternatives": [
+      {
+       "confidence": 0.89,
+       "word": "restrain"
+      },
+      {
+       "confidence": 0.0355,
+       "word": "recent"
+      },
+      {
+       "confidence": 0.0288,
+       "word": "restrained"
+      },
+      {
+       "confidence": 0.0145,
+       "word": "restraint"
+      },
+      {
+       "confidence": 0.0102,
+       "word": "we've"
+      }
+     ],
+     "end_time": 6.24
+    },
+    {
+     "start_time": 6.24,
+     "alternatives": [
+      {
+       "confidence": 0.924,
+       "word": "deficits"
+      },
+      {
+       "confidence": 0.0613,
+       "word": "that's"
+      }
+     ],
+     "end_time": 6.82
+    },
+    {
+     "start_time": 6.82,
+     "alternatives": [
+      {
+       "confidence": 0.9261,
+       "word": "come"
+      },
+      {
+       "confidence": 0.0473,
+       "word": "coming"
+      },
+      {
+       "confidence": 0.0144,
+       "word": "comes"
+      }
+     ],
+     "end_time": 7.1
+    },
+    {
+     "start_time": 7.1,
+     "alternatives": [
+      {
+       "confidence": 0.9897,
+       "word": "down"
+      }
+     ],
+     "end_time": 7.6
+    },
+    {
+     "start_time": 7.91,
+     "alternatives": [
+      {
+       "confidence": 0.7311,
+       "word": "world"
+      },
+      {
+       "confidence": 0.076,
+       "word": "moral"
+      },
+      {
+       "confidence": 0.0665,
+       "word": "burl"
+      },
+      {
+       "confidence": 0.0399,
+       "word": "borough"
+      },
+      {
+       "confidence": 0.0383,
+       "word": "World"
+      },
+      {
+       "confidence": 0.033,
+       "word": "whirl"
+      }
+     ],
+     "end_time": 8.32
+    },
+    {
+     "start_time": 8.32,
+     "alternatives": [
+      {
+       "confidence": 0.976,
+       "word": "one"
+      },
+      {
+       "confidence": 0.0129,
+       "word": "won"
+      }
+     ],
+     "end_time": 8.51
+    },
+    {
+     "start_time": 8.51,
+     "alternatives": [
+      {
+       "confidence": 0.3484,
+       "word": "case"
+      },
+      {
+       "confidence": 0.1593,
+       "word": "Kay's"
+      },
+      {
+       "confidence": 0.1474,
+       "word": "ke's"
+      },
+      {
+       "confidence": 0.1128,
+       "word": "pays"
+      },
+      {
+       "confidence": 0.1067,
+       "word": "K.'s"
+      },
+      {
+       "confidence": 0.044,
+       "word": "Kays"
+      },
+      {
+       "confidence": 0.038,
+       "word": "caves"
+      },
+      {
+       "confidence": 0.0234,
+       "word": "cases"
+      }
+     ],
+     "end_time": 8.87
+    },
+    {
+     "start_time": 8.87,
+     "alternatives": [
+      {
+       "confidence": 0.9742,
+       "word": "recover"
+      }
+     ],
+     "end_time": 9.5
+    },
+    {
+     "start_time": 9.72,
+     "alternatives": [
+      {
+       "confidence": 0.5908,
+       "word": "on"
+      },
+      {
+       "confidence": 0.2623,
+       "word": "an"
+      },
+      {
+       "confidence": 0.0539,
+       "word": "and"
+      },
+      {
+       "confidence": 0.0203,
+       "word": "one"
+      }
+     ],
+     "end_time": 9.86
+    },
+    {
+     "start_time": 9.86,
+     "alternatives": [
+      {
+       "confidence": 0.9569,
+       "word": "auto"
+      }
+     ],
+     "end_time": 10.28
+    },
+    {
+     "start_time": 10.28,
+     "alternatives": [
+      {
+       "confidence": 0.9959,
+       "word": "industry"
+      }
+     ],
+     "end_time": 10.76
+    },
+    {
+     "start_time": 10.76,
+     "alternatives": [
+      {
+       "confidence": 1,
+       "word": "set"
+      }
+     ],
+     "end_time": 11.08
+    },
+    {
+     "start_time": 11.08,
+     "alternatives": [
+      {
+       "confidence": 0.9999,
+       "word": "new"
+      }
+     ],
+     "end_time": 11.26
+    },
+    {
+     "start_time": 11.26,
+     "alternatives": [
+      {
+       "confidence": 0.9982,
+       "word": "records"
+      }
+     ],
+     "end_time": 11.83
+    },
+    {
+     "start_time": 12,
+     "alternatives": [
+      {
+       "confidence": 0.9995,
+       "word": "unemployment"
+      }
+     ],
+     "end_time": 12.83
+    },
+    {
+     "start_time": 13.07,
+     "alternatives": [
+      {
+       "confidence": 0.7287,
+       "word": "reach"
+      },
+      {
+       "confidence": 0.2466,
+       "word": "reached"
+      },
+      {
+       "confidence": 0.0117,
+       "word": "reaches"
+      }
+     ],
+     "end_time": 13.48
+    },
+    {
+     "start_time": 13.52,
+     "alternatives": [
+      {
+       "confidence": 0.9448,
+       "word": "eight"
+      },
+      {
+       "confidence": 0.0199,
+       "word": "a"
+      },
+      {
+       "confidence": 0.015,
+       "word": "eighty"
+      }
+     ],
+     "end_time": 13.79
+    },
+    {
+     "start_time": 13.82,
+     "alternatives": [
+      {
+       "confidence": 0.9761,
+       "word": "year"
+      }
+     ],
+     "end_time": 14.13
+    },
+    {
+     "start_time": 14.13,
+     "alternatives": [
+      {
+       "confidence": 0.976,
+       "word": "lows"
+      }
+     ],
+     "end_time": 14.88
+    },
+    {
+     "start_time": 14.92,
+     "alternatives": [
+      {
+       "confidence": 0.9685,
+       "word": "and"
+      },
+      {
+       "confidence": 0.0138,
+       "word": "then"
+      },
+      {
+       "confidence": 0.0109,
+       "word": "that"
+      }
+     ],
+     "end_time": 15.15
+    },
+    {
+     "start_time": 15.15,
+     "alternatives": [
+      {
+       "confidence": 0.9838,
+       "word": "our"
+      },
+      {
+       "confidence": 0.0132,
+       "word": "are"
+      }
+     ],
+     "end_time": 15.36
+    },
+    {
+     "start_time": 15.36,
+     "alternatives": [
+      {
+       "confidence": 0.8285,
+       "word": "businesses"
+      },
+      {
+       "confidence": 0.1462,
+       "word": "business"
+      },
+      {
+       "confidence": 0.0165,
+       "word": "benefits"
+      }
+     ],
+     "end_time": 15.96
+    },
+    {
+     "start_time": 15.96,
+     "alternatives": [
+      {
+       "confidence": 0.9951,
+       "word": "create"
+      }
+     ],
+     "end_time": 16.54
+    },
+    {
+     "start_time": 16.86,
+     "alternatives": [
+      {
+       "confidence": 0.9992,
+       "word": "fifteen"
+      }
+     ],
+     "end_time": 17.34
+    },
+    {
+     "start_time": 17.34,
+     "alternatives": [
+      {
+       "confidence": 1,
+       "word": "million"
+      }
+     ],
+     "end_time": 17.69
+    },
+    {
+     "start_time": 17.69,
+     "alternatives": [
+      {
+       "confidence": 0.9999,
+       "word": "new"
+      }
+     ],
+     "end_time": 17.85
+    },
+    {
+     "start_time": 17.85,
+     "alternatives": [
+      {
+       "confidence": 0.9942,
+       "word": "jobs"
+      }
+     ],
+     "end_time": 18.37
+    }
+   ],
+   "keywords_result": {},
+   "alternatives": [
+    {
+     "timestamps": [
+      [
+       "after",
+       2.03,
+       2.31
+      ],
+      [
+       "the",
+       2.31,
+       2.39
+      ],
+      [
+       "worst",
+       2.39,
+       2.7
+      ],
+      [
+       "recession",
+       2.7,
+       3.18
+      ],
+      [
+       "of",
+       3.18,
+       3.29
+      ],
+      [
+       "eighty",
+       3.29,
+       3.56
+      ],
+      [
+       "years",
+       3.56,
+       4.03
+      ],
+      [
+       "we",
+       4.03,
+       4.21
+      ],
+      [
+       "fought",
+       4.21,
+       4.57
+      ],
+      [
+       "our",
+       4.57,
+       4.73
+      ],
+      [
+       "way",
+       4.73,
+       4.9
+      ],
+      [
+       "back",
+       4.9,
+       5.19
+      ],
+      [
+       "restrain",
+       5.78,
+       6.24
+      ],
+      [
+       "deficits",
+       6.24,
+       6.82
+      ],
+      [
+       "come",
+       6.82,
+       7.1
+      ],
+      [
+       "down",
+       7.1,
+       7.6
+      ],
+      [
+       "world",
+       7.91,
+       8.32
+      ],
+      [
+       "one",
+       8.32,
+       8.51
+      ],
+      [
+       "case",
+       8.51,
+       8.87
+      ],
+      [
+       "recover",
+       8.87,
+       9.5
+      ],
+      [
+       "on",
+       9.72,
+       9.86
+      ],
+      [
+       "auto",
+       9.86,
+       10.28
+      ],
+      [
+       "industry",
+       10.28,
+       10.76
+      ],
+      [
+       "set",
+       10.76,
+       11.08
+      ],
+      [
+       "new",
+       11.08,
+       11.26
+      ],
+      [
+       "records",
+       11.26,
+       11.83
+      ],
+      [
+       "unemployment",
+       12,
+       12.83
+      ],
+      [
+       "reach",
+       13.07,
+       13.48
+      ],
+      [
+       "eight",
+       13.52,
+       13.79
+      ],
+      [
+       "year",
+       13.82,
+       14.13
+      ],
+      [
+       "lows",
+       14.13,
+       14.88
+      ],
+      [
+       "and",
+       14.92,
+       15.15
+      ],
+      [
+       "our",
+       15.15,
+       15.36
+      ],
+      [
+       "businesses",
+       15.36,
+       15.96
+      ],
+      [
+       "create",
+       15.96,
+       16.54
+      ],
+      [
+       "fifteen",
+       16.86,
+       17.34
+      ],
+      [
+       "million",
+       17.34,
+       17.69
+      ],
+      [
+       "new",
+       17.69,
+       17.85
+      ],
+      [
+       "jobs",
+       17.85,
+       18.37
+      ]
+     ],
+     "confidence": 0.805,
+     "transcript": "after the worst recession of 80 years we fought our way back restrain deficits come down world one case recover on auto industry set new records unemployment reach 8 year lows and our businesses create 15000000 new jobs "
+    }
+   ],
+   "final": true
+  }
+ ],
+ "result_index": 0
+}

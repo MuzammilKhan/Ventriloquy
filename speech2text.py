@@ -59,7 +59,7 @@ def prune_wrong_recog( script, data_file ):
 ######################################################################
 
 def main() :
-	with open('auto-industry.json') as data_file:    
+	with open('speech-snippets/auto-industry.json') as data_file:    
 		good_timestamps = prune_wrong_recog( None, data_file )
 
 	sound = AudioSegment.from_wav("samples/obama-auto-industry-new-records.wav")
