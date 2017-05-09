@@ -1,27 +1,10 @@
 #! /usr/bin/python3
+import sys
+import os
 from pydub import AudioSegment
 import json
 from watson_developer_cloud import SpeechToTextV1
 import conf #contains username and password to access Watson API
-
-#Watson Speech To Text API login info
-stt = SpeechToTextV1(
-	username = conf.username, 
-	password = conf.password,
-	x_watson_learning_opt_out=True
-)
-
-#open desired file and convert to flac (assume  test file in same directory for now)
-audio_init = AudioSegment.from_file("test.mp4", "mp4")
-audio_init.export("tmp.flac", format="flac")
-with open("tmp.flac", 'rb') as audio: #Use Watson Speech API
-	stt.models()
-	stt.get_model('en-US_BroadbandModel')
-	stt_result = stt.recognize(
-		audio, content_type='audio/flac', timestamps=True, word_confidence=True, continuous=True, profanity_filter=False
-	)
-
-	print(json.dumps(stt_result, indent=2))
 
 
 def prune_wrong_recog( script, data_file ):
@@ -58,7 +41,47 @@ def prune_wrong_recog( script, data_file ):
 # main
 ######################################################################
 
-def main() :
+def main(argv) :
+	if(len(sys.argv) != 2): #TODO: change this to allow input transcript
+		print('Usage: speech2text.py inputfile')
+		sys.exit(2)
+
+	#Watson Speech To Text API login info
+	stt = SpeechToTextV1(
+		username = conf.username, 
+		password = conf.password,
+		x_watson_learning_opt_out=True
+	)
+
+	#open input file and convert to flac (assume  test file in same directory for now)
+	basename = os.path.splitext(os.path.basename(sys.argv[1]))[0]
+	file_ext = os.path.splitext(sys.argv[1])[1]
+	audio_init = AudioSegment.from_file(sys.argv[1], file_ext) #assuming input files are all supported by ffmpeg
+	audio_init.export("tmp.flac", format="flac")
+ 	
+ 	#Use Watson Speech API on input file
+	with open("tmp.flac", 'rb') as audio:
+		stt.models()
+		stt.get_model('en-US_BroadbandModel')
+		stt_result = stt.recognize(
+			audio, content_type='audio/flac', timestamps=True, word_confidence=True, continuous=True, profanity_filter=False,
+			word_alternatives_threshold=0.4
+		)#the parameters above can be altered to effect the output of the api
+
+		#dump response to a json file if we want to check it later then open it
+		with open('speech-snippets/' + basename + '.json', 'w') as data_file:
+			json.dump(stt_result, data_file, indent=1)
+		with open('speech-snippets/' + basename + '.json') as data_file:
+			good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
+
+		#clip audio into word clips
+		for k, v in good_timestamps.iteritems():
+			start = 1000 * v[0]
+			end = 1000 * v[1]
+			clip = sound[start:end]
+			clip.export("clips/" + k + ".flac", format="flac")	#changed this to flac from wav
+
+'''
 	with open('speech-snippets/auto-industry.json') as data_file:    
 		good_timestamps = prune_wrong_recog( None, data_file )
 
@@ -69,6 +92,7 @@ def main() :
 		end = 1000 * v[1]
 		clip = sound[start:end]
 		clip.export("clips/" + k + ".wav", format="wav")
+'''
 
 if __name__ == "__main__" :
-	main()
+	main(sys.argv[1:])
