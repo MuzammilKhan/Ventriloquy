@@ -22,3 +22,19 @@ with open("tmp.flac", 'rb') as audio: #Use Watson Speech API
 	)
 
 	print(json.dumps(stt_result, indent=2))
+
+
+def prune-wrong-recog( script, text ):
+	"""Returns the correctly recognized words and their timestamps.
+	
+	Parameters
+    --------------------
+        script   -- Transcript of a speech. This is assumed to be completely correct.
+        text     -- Watson's generated text. This will most likely have some incorrect speech-to-text translations.
+
+    Returns
+    --------------------
+        pruned-text -- dict of words to timestamps. These will be completely accurate
+
+	"""
+
