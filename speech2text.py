@@ -65,7 +65,7 @@ def main(argv) :
 		stt.get_model('en-US_BroadbandModel')
 		stt_result = stt.recognize(
 			audio, content_type='audio/flac', timestamps=True, word_confidence=True, continuous=True, profanity_filter=False,
-			word_alternatives_threshold=0.4
+			word_alternatives_threshold=0.0
 		)#the parameters above can be altered to effect the output of the api
 
 		#dump response to a json file if we want to check it later then open it
@@ -75,24 +75,12 @@ def main(argv) :
 			good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
 
 		#clip audio into word clips
-		for k, v in good_timestamps.iteritems():
+		for k, v in good_timestamps.items():
 			start = 1000 * v[0]
 			end = 1000 * v[1]
-			clip = sound[start:end]
-			clip.export("clips/" + k + ".flac", format="flac")	#changed this to flac from wav
+			clip = audio_init[start:end]
+			clip.export("clips/" + k + ".flac", format="flac")
 
-'''
-	with open('speech-snippets/auto-industry.json') as data_file:    
-		good_timestamps = prune_wrong_recog( None, data_file )
-
-	sound = AudioSegment.from_wav("samples/obama-auto-industry-new-records.wav")
-
-	for k, v in good_timestamps.iteritems():
-		start = 1000 * v[0]
-		end = 1000 * v[1]
-		clip = sound[start:end]
-		clip.export("clips/" + k + ".wav", format="wav")
-'''
 
 if __name__ == "__main__" :
 	main(sys.argv[1:])
