@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Ventriloquy Main Page
+{% endblock %}
+
+{% block heading %}
+<center>
+  <h2>
+    Ventriloquy
+  </h2>
+</center>
+{% endblock %}
+
+
+{% block content %}
+  <center>
+    <p> Enter a sentence:
+  </center>
+  <center>
+    <form name="main" action="http://127.0.0.1:8000/home/search/" method="GET">
+      <input autocomplete="off" type="text" size="50" name="searchtext" id="txt1" placeholder ="Here"/>
+    <input type="submit" value="Submit" />
+    </form>
+  </center>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Results
+{% endblock %}
+
+{% block heading %}]
+<center>
+  <h2>
+    Ventriloquy
+  </h2>
+</center>
+{% endblock %}
+
+
+{% block content %}
+  <ul class="list-unstyled">
+    {% for clip in clips %}
+      <li class="well well-sm">
+        {% include "wordclips/clip.html" %}
+      </li>
+    {% empty %}
+      <li>
+        No clips :<
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
