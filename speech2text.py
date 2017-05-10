@@ -55,17 +55,19 @@ def main(argv) :
 
 	#open input file and convert to flac (assume  test file in same directory for now)
 	basename = os.path.splitext(os.path.basename(sys.argv[1]))[0]
-	file_ext = os.path.splitext(sys.argv[1])[1]
+	file_ext = os.path.splitext(sys.argv[1])[1][1:]
+	print(basename)
+	print(file_ext)
 	audio_init = AudioSegment.from_file(sys.argv[1], file_ext) #assuming input files are all supported by ffmpeg
-	audio_init.export("tmp.flac", format="flac")
+	audio_init.export("tmp.wav", format="wav")
  	
  	#Use Watson Speech API on input file
-	with open("tmp.flac", 'rb') as audio:
+	with open("tmp.wav", 'rb') as audio:
 		stt.models()
 		stt.get_model('en-US_BroadbandModel')
 		stt_result = stt.recognize(
-			audio, content_type='audio/flac', timestamps=True, word_confidence=True, continuous=True, profanity_filter=False,
-			word_alternatives_threshold=0.4
+			audio, content_type='audio/wav', timestamps=True, word_confidence=True, continuous=True, profanity_filter=False,
+			word_alternatives_threshold=0.0
 		)#the parameters above can be altered to effect the output of the api
 
 		#dump response to a json file if we want to check it later then open it
@@ -75,24 +77,12 @@ def main(argv) :
 			good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
 
 		#clip audio into word clips
-		for k, v in good_timestamps.iteritems():
+		for k, v in good_timestamps.items():
 			start = 1000 * v[0]
 			end = 1000 * v[1]
-			clip = sound[start:end]
-			clip.export("clips/" + k + ".flac", format="flac")	#changed this to flac from wav
+			clip = audio_init[start:end]
+			clip.export("clips/" + k + ".wav", format="wav")
 
-'''
-	with open('speech-snippets/auto-industry.json') as data_file:    
-		good_timestamps = prune_wrong_recog( None, data_file )
-
-	sound = AudioSegment.from_wav("samples/obama-auto-industry-new-records.wav")
-
-	for k, v in good_timestamps.iteritems():
-		start = 1000 * v[0]
-		end = 1000 * v[1]
-		clip = sound[start:end]
-		clip.export("clips/" + k + ".wav", format="wav")
-'''
 
 if __name__ == "__main__" :
 	main(sys.argv[1:])
