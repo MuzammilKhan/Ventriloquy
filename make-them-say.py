@@ -9,18 +9,16 @@ from pydub import AudioSegment
 #             return os.path.join(root, name)
 
 def main(argv) :
-	if(len(sys.argv) != 2): #TODO: change this to allow input transcript
+	if(len(sys.argv) != 2): 
 		print('Usage: make-them-say.py statement')
 		sys.exit(2)
 
-	# basename = os.path.splitext(os.path.basename(sys.argv[1]))[0]
 	phrase = os.path.splitext(sys.argv[1])[0]
 	words = phrase.split()
 
 	combined_audio = AudioSegment.silent(duration=0) 
-
+	
 	for word in words:
-		# clip = find(word, '/clips')
 		audio = AudioSegment.from_wav("clips/" + word + ".wav")
 		combined_audio += audio #+ AudioSegment.silent(duration=0.75) 
 
