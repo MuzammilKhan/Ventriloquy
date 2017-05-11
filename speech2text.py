@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 import sys
 import os
+import shutil
 from pydub import AudioSegment
 import json
 from watson_developer_cloud import SpeechToTextV1
@@ -61,27 +62,45 @@ def main(argv) :
 	audio_init = AudioSegment.from_file(sys.argv[1], file_ext) #assuming input files are all supported by ffmpeg
 	audio_init.export("tmp.wav", format="wav")
  	
- 	#Use Watson Speech API on input file
-	with open("tmp.wav", 'rb') as audio:
-		stt.models()
-		stt.get_model('en-US_BroadbandModel')
-		stt_result = stt.recognize(
-			audio, content_type='audio/wav', timestamps=True, word_confidence=True, continuous=True, profanity_filter=False,
-			word_alternatives_threshold=0.0
-		)#the parameters above can be altered to effect the output of the api
+	#TEST
+	if os.path.exists("workspace"):
+		shutil.rmtree("workspace") #clear workspace and remake it
+		os.makedirs("workspace")
+	else:
+	    os.makedirs("workspace")
 
-		#dump response to a json file if we want to check it later then open it
-		with open('speech-snippets/' + basename + '.json', 'w') as data_file:
-			json.dump(stt_result, data_file, indent=1)
-		with open('speech-snippets/' + basename + '.json') as data_file:
-			good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
+	audio_chunk = AudioSegment.silent(duration=0) 
+	endtime=len(audio_init)
+	for i in range(0,endtime, 60000): #chunk audio file into 60s segments
+		if(i + 60000 > endtime):
+			audio_chunk = audio_init[i:endtime]
+		else:
+			audio_chunk = audio_init[i:i+60000]
+		audio_chunk.export("workspace/" + str(i) + ".wav", format="wav")
 
-		#clip audio into word clips
-		for k, v in good_timestamps.items():
-			start = 1000 * v[0]
-			end = 1000 * v[1]
-			clip = audio_init[start:end]
-			clip.export("clips/" + k + ".wav", format="wav")
+	 	#Use Watson Speech API on audio chunk
+		with open("workspace/" + str(i) + ".wav", 'rb') as audio:
+			stt.models()
+			stt.get_model('en-US_BroadbandModel')
+			stt_result = stt.recognize(
+				audio, content_type='audio/wav', timestamps=True, word_confidence=True, continuous=True, profanity_filter=False,
+				word_alternatives_threshold=0.0
+			)#the parameters above can be altered to effect the output of the api
+
+			#dump response to a json file if we want to check it later then open it
+			with open('speech-snippets/' + basename + '_' + str(i) + '.json', 'w') as data_file:
+				json.dump(stt_result, data_file, indent=1)
+			with open('speech-snippets/' + basename + '_' + str(i) + '.json') as data_file:
+				good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
+
+			#clip audio into word clips
+			for k, v in good_timestamps.items():
+				start = 1000 * v[0]
+				end = 1000 * v[1]
+				clip = audio_chunk[start:end]
+				clip.export("clips/" + k + ".wav", format="wav")
+
+
 
 
 if __name__ == "__main__" :
