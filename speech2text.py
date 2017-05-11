@@ -60,12 +60,8 @@ def main(argv) :
 	#open input file and convert to flac (assume  test file in same directory for now)
 	basename = os.path.splitext(os.path.basename(sys.argv[1]))[0]
 	file_ext = os.path.splitext(sys.argv[1])[1][1:]
-	print(basename)
-	print(file_ext)
 	audio_init = AudioSegment.from_file(sys.argv[1], file_ext) #assuming input files are all supported by ffmpeg
-	audio_init.export("tmp.wav", format="wav")
  	
-	#TEST
 	if os.path.exists("workspace"):
 		shutil.rmtree("workspace") #clear workspace and remake it
 		os.makedirs("workspace")
@@ -101,7 +97,8 @@ def main(argv) :
 				start = 1000 * v[0]
 				end = 1000 * v[1]
 				clip = audio_chunk[start:end]
-				clip.export("clips/" + k + ".wav", format="wav")
+				if not ( ('<' in k ) or ('>' in k) or ('\\' in k ) or ('/' in k ) or ('*' in k ) or (':' in k ) or ('?' in k ) or ('\"' in k )): #check for special chars, windows doesn't allow these in filenames
+					clip.export("clips/" + k + ".wav", format="wav")
 
 
 
