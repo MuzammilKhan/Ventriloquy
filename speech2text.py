@@ -29,10 +29,10 @@ def prune_wrong_recog( script, data_file ):
 	good_timestamps = {}
 
 	data = json.load(data_file)
-	res = data['results']
 
-	if res:
-		for word_alternatives in res[0]['word_alternatives']:
+	# if data['results']:
+	for res in data['results']:
+		for word_alternatives in res['word_alternatives']:
 			word = word_alternatives['alternatives'][0]
 			if word['confidence'] > 0.95:
 				start_time = word_alternatives['start_time']
