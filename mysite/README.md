@@ -20,6 +20,7 @@ or if not, download the source code from the [official website](https://www.djan
 ```
 python setup.py install
 ```
+in the package root directory
 ##### Python MySQL adaptor
 Download from [here](http://www.djangoproject.com/r/python-mysql/). Untar the download package, cd into the package root folder and do
 ```
@@ -32,7 +33,7 @@ In the website root directory (where the `manage.py` file is), do
 ```
 python manage.py runserver
 ```
-The server should be now running now and listening on localhost(127.0.0.1:8000).
+The server should be running now and listening on localhost(127.0.0.1:8000).
 
 To listen on different port, do the following instead:
 ```
