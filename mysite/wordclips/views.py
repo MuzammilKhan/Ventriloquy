@@ -34,3 +34,8 @@ def search_in_database(request):
     t = get_template('wordclips/search.html')
     html = t.render(Context({ 'clips': clips }))
     return HttpResponse(html)
+
+def test(request):
+    t = get_template('wordclips/web.php')
+    html = t.render(Context({}))
+    return HttpResponse(html)

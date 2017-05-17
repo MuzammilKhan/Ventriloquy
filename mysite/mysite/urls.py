@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from mysite.views import hello, current_datetime, hours_ahead
-from wordclips.views import home, search_in_database
+from wordclips.views import home, search_in_database, test
 
 '''
     Add URL to view function here.
@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^time/plus/(\d{1,2})/$', hours_ahead),
     url(r'^$', home),
     url(r'^home/$', home),
-    url(r'^home/search/$', search_in_database)
+    url(r'^home/search/$', search_in_database),
+    url(r'^test/$', test)
 ]
