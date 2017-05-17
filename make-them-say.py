@@ -15,12 +15,15 @@ def main(argv) :
 
 	phrase = os.path.splitext(sys.argv[1])[0]
 	words = phrase.split()
-
-	combined_audio = AudioSegment.silent(duration=0) 
+	combined_audio = AudioSegment.silent(duration=0)
+	audio = AudioSegment.silent(duration=0) 
 	
 	for word in words:
-		audio = AudioSegment.from_wav("clips/" + word + ".wav")
-		combined_audio += audio #+ AudioSegment.silent(duration=0.75) 
+		if word == '-': #dashes seperated by space will insert extra silences
+			audio = AudioSegment.silent(duration=100)
+		else:
+			audio = AudioSegment.from_wav("clips/" + word + ".wav")
+		combined_audio += audio + AudioSegment.silent(duration=50) 
 
 	combined_audio.export("output/they-say.wav", format="wav")
 
