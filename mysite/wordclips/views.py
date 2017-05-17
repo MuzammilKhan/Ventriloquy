@@ -9,7 +9,7 @@ from wordclips.wordclip import Wordclip
     View that returns the current datetime
 '''
 def home(request):
-    t = get_template('wordclips/home.html')
+    t = get_template('wordclips/web.html')
     # Populate the context
     html = t.render(Context({}))
     return HttpResponse(html)
@@ -31,11 +31,12 @@ def search_in_database(request):
     # TODO Searching the word list in the database
 
 
-    t = get_template('wordclips/search.html')
-    html = t.render(Context({ 'clips': clips }))
+    t = get_template('wordclips/page_2.html')
+    # html = t.render(Context({ 'clips': clips }))
+    html = t.render(Context({}))
     return HttpResponse(html)
 
 def test(request):
-    t = get_template('wordclips/web.php')
+    t = get_template('wordclips/page_2.html')
     html = t.render(Context({}))
     return HttpResponse(html)

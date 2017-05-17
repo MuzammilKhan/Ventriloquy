@@ -1,9 +1,5 @@
-body {
-    background-image: url("background.jpg");
-    
-}
 video{
-	display:block; 
+	display:block;
 	margin: 0 auto;
 }
 
@@ -34,17 +30,11 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #45a049;
 }
-div {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 5px;
-    margin: 0 auto; 
-	
-}
+
 form {
   text-align: center;
 }
 textarea{
-	width: 30%; 
+	width: 30%;
 	height: 8em;
 }
