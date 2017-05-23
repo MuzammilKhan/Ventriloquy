@@ -26,18 +26,19 @@ def prune_wrong_recog( script, data_file ):
         				These will be completely accurate.
 	"""
 
-	good_timestamps = {}
+	good_timestamps = []
 
 	data = json.load(data_file)
 
-	# if data['results']:
 	for res in data['results']:
 		for word_alternatives in res['word_alternatives']:
 			word = word_alternatives['alternatives'][0]
 			if word['confidence'] > 0.95:
 				start_time = word_alternatives['start_time']
 				end_time = word_alternatives['end_time']
-				good_timestamps[word['word']] = (start_time, end_time)
+				pred_word = word['word']
+				tup = (pred_word, start_time, end_time) 
+				good_timestamps.append(tup)
 
 	return good_timestamps
 
@@ -68,6 +69,7 @@ def main(argv) :
 	else:
 	    os.makedirs("workspace")
 
+   	special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"'] # used later to detect special characters
 	audio_chunk = AudioSegment.silent(duration=0) 
 	endtime=len(audio_init)
 	for i in range(0,endtime, 60000): #chunk audio file into 60s segments
@@ -93,14 +95,25 @@ def main(argv) :
 				good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
 
 			#clip audio into word clips
-			for k, v in good_timestamps.items():
-				start = 1000 * v[0]
-				end = 1000 * v[1]
+			for cur, nxt in zip(good_timestamps, good_timestamps[1:]+[(None, float("inf"), None)]):
+				word = cur[0]
+				start = 1000 * cur[1]
+				cur_end = 1000 * cur[2]
+				nxt_start = 1000 * nxt[1]
+
+				end = cur_end if (cur_end + 100 < nxt_start) else nxt_start
+
 				clip = audio_chunk[start:end]
-				if not ( ('<' in k ) or ('>' in k) or ('\\' in k ) or ('/' in k ) or ('*' in k ) or (':' in k ) or ('?' in k ) or ('\"' in k )): #check for special chars, windows doesn't allow these in filenames
-					clip.export("clips/" + k + ".wav", format="wav")
 
+				no_special_char = True
+				#check for special chars b/c windows doesn't allow these in filenames
+				for char in special_chars:
+					if char in word:
+						no_special_char = False
+						break
 
+				if no_special_char:
+					clip.export("clips/" + word + ".wav", format="wav")
 
 
 if __name__ == "__main__" :

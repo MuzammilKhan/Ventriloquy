@@ -23,7 +23,7 @@ def main(argv) :
 			audio = AudioSegment.silent(duration=100)
 		else:
 			audio = AudioSegment.from_wav("clips/" + word + ".wav")
-		combined_audio += audio + AudioSegment.silent(duration=50) 
+		combined_audio += audio + AudioSegment.silent(duration=25) 
 
 	combined_audio.export("output/they-say.wav", format="wav")
 
