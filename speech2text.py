@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 import sys
 import os
+import glob
 import shutil
 from pydub import AudioSegment
 import json
@@ -41,6 +42,11 @@ def prune_wrong_recog( script, data_file ):
 				good_timestamps.append(tup)
 
 	return good_timestamps
+
+def assure_path_exists(path):
+    dir = os.path.dirname(path)
+    if not os.path.exists(dir):
+    	os.makedirs(dir)
 
 ######################################################################
 # main
@@ -113,7 +119,10 @@ def main(argv) :
 						break
 
 				if no_special_char:
-					clip.export("clips/" + word + ".wav", format="wav")
+					path = "clips/" + word + "/"
+					assure_path_exists(path)
+					num_clips = len(glob.glob(path + '*')) # get num of clips already in folder, to avoid overwiting
+					clip.export(path + str(num_clips + 1) + ".wav", format="wav")
 
 
 if __name__ == "__main__" :
