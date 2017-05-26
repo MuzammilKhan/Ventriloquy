@@ -1,3 +1,7 @@
+## Ventriloquy related
+### clips
+mysite/wordclips/clips
+
 # Django Recommended
 *.egg-info
 *.pot
