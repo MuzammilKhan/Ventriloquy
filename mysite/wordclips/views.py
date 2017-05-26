@@ -42,7 +42,7 @@ def search_in_database(request):
     # Print out the results
     print('@@@@@@ input word list')
     for c in clips:
-        dis = "%s spoken by %s" % (str(c), str(c.speaker.all()[0]))
+        dis = "%s spoken by %s" % (str(c), str(c.speaker))
         print(dis)
 
     print('@@@@@@')

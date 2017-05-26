@@ -29,5 +29,5 @@ class Command(BaseCommand):
                 # Create clips in database
                 w = Wordclip(name=p, soundpath=os.path.abspath(CLIPS_DIR + '/' + p))
                 w.save()
-                w.speaker.add(spk)
+                w.speaker = spk
                 w.save()

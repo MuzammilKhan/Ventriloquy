@@ -22,7 +22,7 @@ class Speaker(models.Model):
 class Wordclip(models.Model):
     name = models.CharField(max_length=100)
     # one word can be spoken by many speakers and vice versa
-    speaker = models.ManyToManyField(Speaker)
+    speaker = models.ForeignKey(Speaker, null=True)
     soundpath = models.CharField(max_length=200)
 
     def __unicode__(self):
