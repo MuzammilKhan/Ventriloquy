@@ -30,6 +30,8 @@ def search_in_database(request):
 
     # TODO Searching the word list in the database
 
+    
+
 
     t = get_template('wordclips/page_2.html')
     # html = t.render(Context({ 'clips': clips }))

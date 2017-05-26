@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -79,6 +80,9 @@ TEMPLATE_DIRS = (
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+ALLOWED_HOSTS = ['ventriloquy130.herokuapp.com']
+
+
 # -----------------
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -88,6 +92,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/databases/
 
 DATABASES = {
+    #'default': dj_database_url.config()
     'default': {
         'ENGINE' : 'django.db.backends.mysql',
         'OPTIONS': {
