@@ -26,7 +26,7 @@ class Wordclip(models.Model):
     soundpath = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return self.name + ' spoken by ' + self.speaker
+        return self.name
 
     def __str__(self):
-        return self.name + ' spoken by ' + self.speaker
+        return self.name

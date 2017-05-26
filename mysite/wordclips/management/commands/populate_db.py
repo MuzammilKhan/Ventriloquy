@@ -3,6 +3,9 @@ from wordclips.models import Speaker, Wordclip
 import wordclips
 import os
 
+'''
+    Command to populate database with path of wordclips
+'''
 class Command(BaseCommand):
     args = '<no argument needed ...>'
     help = 'CAREFUL! Populating data into the database'
@@ -27,3 +30,4 @@ class Command(BaseCommand):
                 w = Wordclip(name=p, soundpath=os.path.abspath(CLIPS_DIR + '/' + p))
                 w.save()
                 w.speaker.add(spk)
+                w.save()
