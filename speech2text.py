@@ -7,7 +7,25 @@ from pydub import AudioSegment
 import json
 from watson_developer_cloud import SpeechToTextV1
 import conf #contains username and password to access Watson API
+from moviepy.tools import subprocess_call
+from moviepy.config import get_setting
 
+def ffmpeg_extract_subclip(filename, t1, t2, targetname=None):
+    """ makes a new video file playing video file ``filename`` between
+        the times ``t1`` and ``t2``. 
+        Note: This function is from the moviepy library but it was buggy so I fixed it here"""
+    name,ext = os.path.splitext(filename)
+    if not targetname:
+        T1, T2 = [int(1000*t) for t in [t1, t2]]
+        targetname = name+ "%sSUB%d_%d.%s"(name, T1, T2, ext)
+    
+    cmd = [get_setting("FFMPEG_BINARY"), "-y",
+      "-i", filename,
+      "-ss", "%0.2f"%t1,
+      "-t", "%0.2f"%(t2-t1),
+      targetname]
+    
+    subprocess_call(cmd)
 
 def prune_wrong_recog( script, data_file ):
 	"""
