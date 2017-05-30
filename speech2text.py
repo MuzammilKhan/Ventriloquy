@@ -6,7 +6,25 @@ from pydub import AudioSegment
 import json
 from watson_developer_cloud import SpeechToTextV1
 import conf #contains username and password to access Watson API
+from moviepy.tools import subprocess_call
+from moviepy.config import get_setting
 
+def ffmpeg_extract_subclip(filename, t1, t2, targetname=None):
+    """ makes a new video file playing video file ``filename`` between
+        the times ``t1`` and ``t2``. 
+        Note: This function is from the moviepy library but it was buggy so I fixed it here"""
+    name,ext = os.path.splitext(filename)
+    if not targetname:
+        T1, T2 = [int(1000*t) for t in [t1, t2]]
+        targetname = name+ "%sSUB%d_%d.%s"(name, T1, T2, ext)
+    
+    cmd = [get_setting("FFMPEG_BINARY"), "-y",
+      "-i", filename,
+      "-ss", "%0.2f"%t1,
+      "-t", "%0.2f"%(t2-t1),
+      targetname]
+    
+    subprocess_call(cmd)
 
 def prune_wrong_recog( script, data_file ):
 	"""
@@ -94,13 +112,10 @@ def main(argv) :
 
 			#clip audio into word clips
 			for k, v in good_timestamps.items():
-				start = 1000 * v[0]
-				end = 1000 * v[1]
-				clip = audio_chunk[start:end]
+				start = v[0]
+				end = v[1]
 				if not ( ('<' in k ) or ('>' in k) or ('\\' in k ) or ('/' in k ) or ('*' in k ) or (':' in k ) or ('?' in k ) or ('\"' in k )): #check for special chars, windows doesn't allow these in filenames
-					clip.export("clips/" + k + ".wav", format="wav")
-
-
+					ffmpeg_extract_subclip(sys.argv[1], start, end, targetname="clips/" + k + ".mp4")
 
 
 if __name__ == "__main__" :
