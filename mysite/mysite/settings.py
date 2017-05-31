@@ -91,15 +91,30 @@ ALLOWED_HOSTS = ['ventriloquy130.herokuapp.com']
 # also see this page to see how it's configured for MySQL
 # https://docs.djangoproject.com/en/1.11/ref/databases/
 
-DATABASES = {
-    #'default': dj_database_url.config()
-    'default': {
-        'ENGINE' : 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'mysite/my.cnf'),
-        },
+# AWS RDS database setup support
+# the database setup parameter will be automatically setup
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    # using local database
+    DATABASES = {
+        #'default': dj_database_url.config()
+        'default': {
+            'ENGINE' : 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': os.path.join(BASE_DIR, 'mysite/my.cnf'),
+            },
+        }
+    }
 
 
 # Internationalization
