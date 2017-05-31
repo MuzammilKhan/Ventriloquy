@@ -7,8 +7,6 @@ from pydub import AudioSegment
 import json
 from watson_developer_cloud import SpeechToTextV1
 import conf #contains username and password to access Watson API
-import imageio
-imageio.plugins.ffmpeg.download()
 from moviepy.tools import subprocess_call
 from moviepy.config import get_setting
 
@@ -95,7 +93,7 @@ def main(argv) :
 	else:
 	    os.makedirs("workspace")
 
-   	special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"'] # used later to detect special characters
+	special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"'] # used later to detect special characters
 	audio_chunk = AudioSegment.silent(duration=0) 
 	endtime=len(audio_init)
 	for i in range(0,endtime, 60000): #chunk audio file into 60s segments
@@ -123,11 +121,11 @@ def main(argv) :
 			#clip audio into word clips
 			for cur, nxt in zip(good_timestamps, good_timestamps[1:]+[(None, float("inf"), None)]):
 				word = cur[0]
-				start = 1000 * cur[1]
-				cur_end = 1000 * cur[2]
-				nxt_start = 1000 * nxt[1]
+				start =  cur[1]
+				cur_end =  cur[2]
+				nxt_start =  nxt[1]
 
-				end = cur_end if (cur_end + 100 < nxt_start) else nxt_start
+				end = cur_end if (cur_end + 0.1 < nxt_start) else nxt_start
 
 				clip = audio_chunk[start:end]
 
@@ -142,7 +140,7 @@ def main(argv) :
 					path = "clips/" + word + "/"
 					assure_path_exists(path)
 					num_clips = len(glob.glob(path + '*')) # get num of clips already in folder, to avoid overwiting
-					clip.export(path + str(num_clips + 1) + ".wav", format="wav")
+					ffmpeg_extract_subclip(sys.argv[1], start, end, targetname=(path  + str(num_clips + 1) + ".mp4"))
 
 
 if __name__ == "__main__" :

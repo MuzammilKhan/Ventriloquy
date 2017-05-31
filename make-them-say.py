@@ -7,7 +7,7 @@ from moviepy.tools import subprocess_call
 from moviepy.config import get_setting
 
 def concat(clips):
-		"""
+	"""
 	Concatenates the the input clips into an output video
 	Parameters
     --------------------
@@ -28,8 +28,8 @@ def concat(clips):
 	concat_param = "concat:"
 	first = True
 	for clip in clips:
-		cmd = [get_setting("FFMPEG_BINARY"),
-		  "-i", "clips/" + clip + ".mp4",
+		cmd = [get_setting("FFMPEG_BINARY"), "-y",
+		  "-i", "clips/" + clip + "/1.mp4",
 		  "-c", "copy", "-bsf:v",  "h264_mp4toannexb",
 		  "-f", "mpegts", 
 		  "workspacets/" + clip + ".ts"]   
