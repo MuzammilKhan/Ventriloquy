@@ -42,7 +42,13 @@ def search_in_database(request):
             print('path of word ' + w + ' is: ' + o.soundpath)
             clips.append(o)
 
-    create_audio(wl)
+    # Create the clips
+
+    err, missing = create_audio(wl)
+    if err != 0:
+        t = get_template('wordclips/error.html')
+        html = t.render(Context({ 'missing' : missing }))
+        return HttpResponse(html)
 
     # Print out the results
     print('@@@@@@ input word list')
@@ -52,9 +58,6 @@ def search_in_database(request):
         print(dis)
 
     print('@@@@@@')
-
-
-
 
 
 
