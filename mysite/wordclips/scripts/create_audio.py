@@ -29,8 +29,8 @@ def create_audio(words) :
 			if os.path.isfile(clip_path):
 				audio = AudioSegment.from_wav(clip_path)
 				combined_audio += audio + AudioSegment.silent(duration=50)
-			elif os.path.isfile(APP_ROOT + "/clips" + word.lower() + "/1.wav"):
-				audio = AudioSegment.from_wav(APP_ROOT + "/clips" + word.lower() + "/1.wav")
+			elif os.path.isfile(APP_ROOT + "/clips/" + word.lower() + "/1.wav"):
+				audio = AudioSegment.from_wav(APP_ROOT + "/clips/" + word.lower() + "/1.wav")
 				combined_audio += audio + AudioSegment.silent(duration=50)
 			else:
 				# Find to find the current word in the db
