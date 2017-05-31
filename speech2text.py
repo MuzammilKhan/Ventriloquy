@@ -77,7 +77,7 @@ def assure_path_exists(path):
 	if not os.path.exists(dir):
 		os.makedirs(dir)
 
-def extract_words(orig_clip, good_timestamps):
+def extract_words(orig_clip, good_timestamps, person, seconds):
 	"""
 	Extract word clips from the input audio clip.
 
@@ -85,6 +85,8 @@ def extract_words(orig_clip, good_timestamps):
     --------------------
         orig_clip			-- 	The input audio clip that we want to extract word clips from
         good_timestamps		-- 	The timestamps of the words
+        person 				-- 	The person whose voice this is
+        seconds				--  How many seconds have passed
 
     Returns
     --------------------
@@ -94,11 +96,11 @@ def extract_words(orig_clip, good_timestamps):
 
 	for cur, nxt in zip(good_timestamps, good_timestamps[1:]+[(None, float("inf"), None)]):
 		word = cur[0]
-		start =  cur[1]
-		cur_end =  cur[2]
-		nxt_start =  nxt[1]
+		start =  seconds + cur[1]
+		cur_end =  seconds + cur[2]
+		nxt_start =  seconds + nxt[1]
 
-		end = cur_end if (cur_end + 0.1 < nxt_start) else nxt_start
+		end = cur_end #if (cur_end + 0.1 < nxt_start) else nxt_start
 		
 		no_special_char = True
 		#check for special chars b/c windows doesn't allow these in filenames
@@ -108,7 +110,7 @@ def extract_words(orig_clip, good_timestamps):
 				break
 
 		if no_special_char:
-			path = "clips/" + word + "/"
+			path = "clips/" + person + "/" + word.lower() + "/"
 			assure_path_exists(path)
 			num_clips = len(glob.glob(path + '*')) # get num of clips already in folder, to avoid overwiting
 			ffmpeg_extract_subclip(orig_clip, start, end, targetname=(path  + str(num_clips + 1) + ".mp4"))
@@ -119,8 +121,8 @@ def extract_words(orig_clip, good_timestamps):
 ######################################################################
 
 def main(argv) :
-	if(len(sys.argv) != 2): #TODO: change this to allow input transcript
-		print('Usage: speech2text.py inputfile')
+	if(len(sys.argv) != 3): #TODO: change this to allow input transcript
+		print('Usage: speech2text.py person inputfile')
 		sys.exit(2)
 
 	#Watson Speech To Text API login info
@@ -131,9 +133,9 @@ def main(argv) :
 	)
 
 	#open input file and convert to flac (assume  test file in same directory for now)
-	basename = os.path.splitext(os.path.basename(sys.argv[1]))[0]
-	file_ext = os.path.splitext(sys.argv[1])[1][1:]
-	audio_init = AudioSegment.from_file(sys.argv[1], file_ext) #assuming input files are all supported by ffmpeg
+	basename = os.path.splitext(os.path.basename(sys.argv[2]))[0]
+	file_ext = os.path.splitext(sys.argv[2])[1][1:]
+	audio_init = AudioSegment.from_file(sys.argv[2], file_ext) #assuming input files are all supported by ffmpeg
  	
 	if os.path.exists("workspace"):
 		shutil.rmtree("workspace") #clear workspace and remake it
@@ -166,7 +168,7 @@ def main(argv) :
 				good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
 
 			#clip audio into word clips
-			extract_words(sys.argv[1], good_timestamps)
+			extract_words(sys.argv[2], good_timestamps, sys.argv[1].lower(), i/1000)
 
 
 if __name__ == "__main__" :
