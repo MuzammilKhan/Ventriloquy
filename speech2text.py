@@ -7,6 +7,8 @@ from pydub import AudioSegment
 import json
 from watson_developer_cloud import SpeechToTextV1
 import conf #contains username and password to access Watson API
+import imageio
+imageio.plugins.ffmpeg.download()
 from moviepy.tools import subprocess_call
 from moviepy.config import get_setting
 
