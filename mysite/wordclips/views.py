@@ -45,6 +45,7 @@ def search_in_database(request):
     # Create the clips
 
     err, missing = create_audio(wl)
+    # Check if there is any missing word in the db
     if err != 0:
         t = get_template('wordclips/error.html')
         html = t.render(Context({ 'missing' : missing }))
