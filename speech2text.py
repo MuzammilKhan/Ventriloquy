@@ -62,9 +62,57 @@ def prune_wrong_recog( script, data_file ):
 	return good_timestamps
 
 def assure_path_exists(path):
-    dir = os.path.dirname(path)
-    if not os.path.exists(dir):
-    	os.makedirs(dir)
+	"""
+	Check if path exists. If not, create it.
+
+	Parameters
+    --------------------
+        path			-- 	path
+
+    Returns
+    --------------------
+        nothing
+	"""
+	dir = os.path.dirname(path)
+	if not os.path.exists(dir):
+		os.makedirs(dir)
+
+def extract_words(orig_clip, good_timestamps):
+	"""
+	Extract word clips from the input audio clip.
+
+	Parameters
+    --------------------
+        orig_clip			-- 	The input audio clip that we want to extract word clips from
+        good_timestamps		-- 	The timestamps of the words
+
+    Returns
+    --------------------
+        nothing 
+	"""
+	special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"'] # used later to detect special characters
+
+	for cur, nxt in zip(good_timestamps, good_timestamps[1:]+[(None, float("inf"), None)]):
+		word = cur[0]
+		start =  cur[1]
+		cur_end =  cur[2]
+		nxt_start =  nxt[1]
+
+		end = cur_end if (cur_end + 0.1 < nxt_start) else nxt_start
+		
+		no_special_char = True
+		#check for special chars b/c windows doesn't allow these in filenames
+		for char in special_chars:
+			if char in word:
+				no_special_char = False
+				break
+
+		if no_special_char:
+			path = "clips/" + word + "/"
+			assure_path_exists(path)
+			num_clips = len(glob.glob(path + '*')) # get num of clips already in folder, to avoid overwiting
+			ffmpeg_extract_subclip(orig_clip, start, end, targetname=(path  + str(num_clips + 1) + ".mp4"))
+
 
 ######################################################################
 # main
@@ -93,7 +141,6 @@ def main(argv) :
 	else:
 	    os.makedirs("workspace")
 
-	special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"'] # used later to detect special characters
 	audio_chunk = AudioSegment.silent(duration=0) 
 	endtime=len(audio_init)
 	for i in range(0,endtime, 60000): #chunk audio file into 60s segments
@@ -119,28 +166,7 @@ def main(argv) :
 				good_timestamps = prune_wrong_recog(None, data_file)  #TODO: add script to arguments of this file
 
 			#clip audio into word clips
-			for cur, nxt in zip(good_timestamps, good_timestamps[1:]+[(None, float("inf"), None)]):
-				word = cur[0]
-				start =  cur[1]
-				cur_end =  cur[2]
-				nxt_start =  nxt[1]
-
-				end = cur_end if (cur_end + 0.1 < nxt_start) else nxt_start
-
-				clip = audio_chunk[start:end]
-
-				no_special_char = True
-				#check for special chars b/c windows doesn't allow these in filenames
-				for char in special_chars:
-					if char in word:
-						no_special_char = False
-						break
-
-				if no_special_char:
-					path = "clips/" + word + "/"
-					assure_path_exists(path)
-					num_clips = len(glob.glob(path + '*')) # get num of clips already in folder, to avoid overwiting
-					ffmpeg_extract_subclip(sys.argv[1], start, end, targetname=(path  + str(num_clips + 1) + ".mp4"))
+			extract_words(sys.argv[1], good_timestamps)
 
 
 if __name__ == "__main__" :
