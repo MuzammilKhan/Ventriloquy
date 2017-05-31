@@ -1,6 +1,7 @@
 ## Ventriloquy related
 ### clips
 mysite/wordclips/clips
+*.wav
 
 # Django Recommended
 *.egg-info

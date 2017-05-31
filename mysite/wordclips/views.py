@@ -4,11 +4,12 @@ from django.template import Context
 from django.http import HttpResponse
 # from wordclips.wordclip import Wordclip
 from wordclips.models import Wordclip
+from wordclips.scripts.create_audio import create_audio
 
 
 # Create your views here.
 '''
-    View that returns the current datetime
+    Home view
 '''
 def home(request):
     t = get_template('wordclips/web.html')
@@ -16,12 +17,14 @@ def home(request):
     html = t.render(Context({}))
     return HttpResponse(html)
 
-
+'''
+    Result view that is returned after text input
+'''
 def search_in_database(request):
 
     # Obtain word list
     # print('@@@@ FLAG ')
-    words = request.GET.get('Input_text', '');
+    words = request.GET.get('Input_text', '')
     # print('receive: ' + wl)
 
     # Split the search sentence into words and put into a list
@@ -32,24 +35,29 @@ def search_in_database(request):
         try:
             o = Wordclip.objects.get(name=w)
         except Wordclip.DoesNotExist:
+            # TODO: more handling code to nonexist item in the DB
             print(w + " is NOT in the database yet.")
         else:
             print(w + " is in the database.")
             print('path of word ' + w + ' is: ' + o.soundpath)
             clips.append(o)
 
+    # Create the clips
+
+    err, missing = create_audio(wl)
+    if err != 0:
+        t = get_template('wordclips/error.html')
+        html = t.render(Context({ 'missing' : missing }))
+        return HttpResponse(html)
 
     # Print out the results
     print('@@@@@@ input word list')
     for c in clips:
         dis = "%s spoken by %s" % (str(c), str(c.speaker))
+
         print(dis)
 
     print('@@@@@@')
-
-
-    # TODO Searching the word list in the database
-
 
 
 
