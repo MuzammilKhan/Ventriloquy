@@ -12,6 +12,7 @@ def concat(person, clips):
 	Parameters
     --------------------
         clips			-- 	Array of clip names excluding filetype as we assume them to be .mp4
+
     Returns
     --------------------
         returns nothing but creates an output video
@@ -49,6 +50,26 @@ def concat(person, clips):
 	
 	subprocess_call(fcmd)
 
+def normalize(clip):
+	"""
+	Normalizes the audio of the the input clip into an output video
+	Parameters
+    --------------------
+        clips			-- 	Array of clip names excluding filetype as we assume them to be .mp4
+
+    Returns
+    --------------------
+        returns nothing but creates an output video
+	"""
+
+	cmd = ["ffmpeg-normalize", "-fu",
+	  "--format", "mp4",
+	  clip]   
+
+	subprocess_call(cmd)
+
+
+
 # def find(name, path):
 #     for root, dirs, files in os.walk(path):
 #         if name in files:
@@ -63,6 +84,7 @@ def main(argv) :
 	words = phrase.split()
 
 	concat(sys.argv[1].lower(), words)
+	normalize("output/they-say.mp4")
 	
 if __name__ == "__main__" :
 	main(sys.argv[1:])
