@@ -10,4 +10,5 @@ Get `pip` and run the following:
 ```
 pip install pydub
 pip install watson-developer-cloud
+pip install ffmpeg-normalize
 ```
