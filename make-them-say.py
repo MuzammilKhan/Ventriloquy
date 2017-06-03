@@ -68,13 +68,6 @@ def normalize(clip):
 
 	subprocess_call(cmd)
 
-
-
-# def find(name, path):
-#     for root, dirs, files in os.walk(path):
-#         if name in files:
-#             return os.path.join(root, name)
-
 def main(argv) :
 	if(len(sys.argv) != 3): 
 		print('Usage: make-them-say.py person statement')
