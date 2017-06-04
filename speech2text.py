@@ -22,6 +22,7 @@ stt = SpeechToTextV1(	#Watson Speech To Text API login info
 )
 
 num_threads = 3
+special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"', '.'] # used later to detect special characters
 
 basename = ""
 person = ""
@@ -163,8 +164,6 @@ def extract_words(orig_clip, good_timestamps, seconds, ID):
 	--------------------
 		nothing 
 	"""
-	special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"'] # used later to detect special characters
-
 	for cur, nxt in zip(good_timestamps, good_timestamps[1:]+[(None, float("inf"), None)]):
 		word = cur[0]
 		start =  seconds + cur[1]
@@ -183,8 +182,6 @@ def extract_words(orig_clip, good_timestamps, seconds, ID):
 			assure_path_exists(path)
 			num_clips = len(glob.glob(path + "*")) # get num of clips already in folder, to avoid overwiting
 			ffmpeg_extract_subclip(orig_clip, start, end, targetname=(path + str(num_clips + 1) + ".mp4"))
-			if word == "we" and ID == 1:
-				print("start: " + str(start) + ", end: ", str(end))
 
 ######################################################################
 # main
@@ -231,9 +228,21 @@ def main(argv) :
 	for t in threads:
 		t.join()
 
-	# for root, dirs, files in os.walk("/clips/" + person + "/"):
-	# 	print files
-		# for file in glob.glob("*.txt"):
+	path = "clips/" + "obama" + "/"
+	subdirectories = os.listdir(path)
+	for subdir in subdirectories:
+		if not '.' in subdir:
+			files = os.listdir(path + subdir)
+			maximum = 0
+			biggest_file_path = ""
+			for file in files:
+				path_to_file = path + subdir + "/" + file
+				if maximum < len(file):
+					maximum = len(file)
+					biggest_file_path = path_to_file
+				else:
+					os.remove(path + subdir + "/" + file)
+			os.rename(biggest_file_path, path + subdir + "/1.mp4")
 
 if __name__ == "__main__" :
 	main(sys.argv[1:])

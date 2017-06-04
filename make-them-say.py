@@ -10,12 +10,12 @@ def concat(person, clips):
 	"""
 	Concatenates the the input clips into an output video for a given person
 	Parameters
-    --------------------
-        clips			-- 	Array of clip names excluding filetype as we assume them to be .mp4
+	--------------------
+		clips			-- 	Array of clip names excluding filetype as we assume them to be .mp4
 
-    Returns
-    --------------------
-        returns nothing but creates an output video
+	Returns
+	--------------------
+		returns nothing but creates an output video
 	"""
 
 	#create workspace for less clutter
@@ -30,12 +30,17 @@ def concat(person, clips):
 	first = True
 	for clip in clips:
 		cmd = [get_setting("FFMPEG_BINARY"), "-y",
-		  "-i", "clips/" + person + "/" + clip + "/1.mp4",
-		  "-c", "copy", "-bsf:v",  "h264_mp4toannexb",
-		  "-f", "mpegts", 
-		  "workspacets/" + clip + ".ts"]   
+			"-i", "clips/" + person + "/" + clip + "/1.mp4",
+			"-c", "copy", "-bsf:v",  "h264_mp4toannexb",
+			"-f", "mpegts", 
+			"workspacets/" + clip + ".ts"]   
 
-		subprocess_call(cmd)
+		try:
+			subprocess_call(cmd, False, False)
+		except:
+			print("Oops! Obama doesn't know the word: " + clip + " :(")
+			sys.exit()
+		
 		if first:
 			concat_param = concat_param + "workspacets/" + clip + ".ts"
 			first = False
@@ -48,25 +53,25 @@ def concat(person, clips):
 	  "-bsf:a", "aac_adtstoasc",
 	  "output/they-say.mp4"]
 	
-	subprocess_call(fcmd)
+	subprocess_call(fcmd, False)
 
 def normalize(clip):
 	"""
 	Normalizes the audio of the the input clip into an output video
 	Parameters
-    --------------------
-        clips			-- 	Array of clip names excluding filetype as we assume them to be .mp4
+	--------------------
+		clips			-- 	Array of clip names excluding filetype as we assume them to be .mp4
 
-    Returns
-    --------------------
-        returns nothing but creates an output video
+	Returns
+	--------------------
+		returns nothing but creates an output video
 	"""
 
 	cmd = ["ffmpeg-normalize", "-fu",
 	  "--format", "mp4",
 	  clip]   
 
-	subprocess_call(cmd)
+	subprocess_call(cmd, False)
 
 def main(argv) :
 	if(len(sys.argv) != 3): 
