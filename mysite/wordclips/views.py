@@ -36,7 +36,7 @@ def search_in_database(request):
 
     # Split the search sentence into words and put into a list
     # wordclip objects
-    wl = parser.parse(words)
+    wl = parser.parseDefault(words)
 
 
     # Create the generated video using the clips
@@ -47,7 +47,7 @@ def search_in_database(request):
         html = t.render(Context({ 'missing' : missing }))
         return HttpResponse(html)
 
-    
+
 
 
 
