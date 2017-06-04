@@ -21,7 +21,15 @@ stt = SpeechToTextV1(	#Watson Speech To Text API login info
 	x_watson_learning_opt_out=True
 )
 
-num_threads = 3
+#select number of threads
+num_threads = 1
+#the following will set the number of threads equal to the amount of logical processors on the machine
+if sys.platform == 'win32':
+	num_threads = ((int)(os.environ['NUMBER_OF_PROCESSORS']))
+else:
+	num_threads = ((int)(os.popen('grep -c cores /proc/cpuinfo').read()))
+print("Using " + str(num_threads) + " threads...")
+
 special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"', '.'] # used later to detect special characters
 
 basename = ""
