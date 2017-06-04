@@ -4,7 +4,8 @@ from django.template import Context
 from django.http import HttpResponse
 # from wordclips.wordclip import Wordclip
 from wordclips.models import Wordclip
-from wordclips.scripts.create_audio import create_audio
+from wordclips.ventriloquy.ventriloquy import Ventriloquy
+from wordclips.utils.inputparser import InputParser
 
 
 # Create your views here.
@@ -17,6 +18,7 @@ def home(request):
     html = t.render(Context({}))
     return HttpResponse(html)
 
+
 '''
     Result view that is returned after text input
 '''
@@ -27,38 +29,25 @@ def search_in_database(request):
     words = request.GET.get('Input_text', '')
     # print('receive: ' + wl)
 
+    # Input parser
+    parser = InputParser(" ")
+    ventriloquy = Ventriloquy()
+
+
     # Split the search sentence into words and put into a list
     # wordclip objects
-    wl = words.split()
-    clips = []
-    for w in wl:
-        try:
-            o = Wordclip.objects.get(name=w)
-        except Wordclip.DoesNotExist:
-            # TODO: more handling code to nonexist item in the DB
-            print(w + " is NOT in the database yet.")
-        else:
-            print(w + " is in the database.")
-            print('path of word ' + w + ' is: ' + o.soundpath)
-            clips.append(o)
+    wl = parser.parse(words)
 
-    # Create the clips
 
-    err, missing = create_audio(wl)
+    # Create the generated video using the clips
+    err, missing = ventriloquy.create_audio(wl)
     # Check if there is any missing word in the db
     if err != 0:
         t = get_template('wordclips/error.html')
         html = t.render(Context({ 'missing' : missing }))
         return HttpResponse(html)
 
-    # Print out the results
-    print('@@@@@@ input word list')
-    for c in clips:
-        dis = "%s spoken by %s" % (str(c), str(c.speaker))
-
-        print(dis)
-
-    print('@@@@@@')
+    
 
 
 
