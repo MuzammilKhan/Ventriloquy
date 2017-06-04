@@ -44,3 +44,6 @@ for development or
 python manage.py runserver <your_port>
 ```
 for nonlocal host.
+
+### Test
+To automatically run all the unit tests
