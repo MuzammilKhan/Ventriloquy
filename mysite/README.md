@@ -44,3 +44,18 @@ for development or
 python manage.py runserver <your_port>
 ```
 for nonlocal host.
+
+### Test
+To automatically run all the unit test cases, do
+```
+python manage.py test
+```
+in the current folder. If you see something like
+```
+....
+----------------------------------------------------------------------
+Ran 50 tests in 0.012s
+
+OK
+```
+then you are all set.
