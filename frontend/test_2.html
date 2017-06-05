@@ -54,12 +54,24 @@ select option {
 label{
 	color: grey;
 }
+
+video{
+  border: 2px solid white;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.controls{
+  background-color: black;
+}
 .button1 {
     background: transparent; 
     color: white; 
     border: 1px solid white;
     outline-color: grey;
-	margin-top: 4px;
+	  margin-top: 4px;
 
 }
 </style>
@@ -70,26 +82,20 @@ label{
     
   </div>
   <div class="w3-display-middle">
-    <h1 class="w3-jumbo w3-animate-top">VENTRILOQUY</h1>
+    <h1 class="w3-jumbo w3-animate-top">Ventriloquy</h1>
     
     <div align="center">
-    <form action="test_2.html" method="get">
+    <form action="test.html" method="get">
     
-    <label for="Person">Select Speaker: </label>
-    <select name="Person" id="Person">
-    <option value="Obama">Obama</option>
-    <option value="Trump">Trump</option>
-    </select>
-
-    <br>
+    <video width="400" controls >
+    <source src="movie.mp4" type="video/mp4">
+    <source src="mov_bbb.ogg" type="video/ogg">
+    Your browser does not support HTML5 video.
+    </video>
     
-    <input  type="text" name="input_text" placeholder="Click To Enter Text">
-    <br>
     <hr class="w3-border-grey" style="margin:auto;width:40%">
     
-    
-    
-    <button  class="button button1" value="Submit">Submit</button>
+    <button  class="button button1" value="Back">Go Back!</button>
     </form>
     </div>
 
