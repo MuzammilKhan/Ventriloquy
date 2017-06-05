@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+<head>
+
+</head>
+
 <title>Ventriloquy</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,8 +29,20 @@ input[type=text]{
   outline-color: grey;
   margin-top: 4px;
 
+
 }
 
+textarea{
+ background: transparent;
+  border :none;
+  color: white;
+  text-align: center;
+  
+  margin-top: 4px;
+  resize: none;
+  outline:none;
+
+}
 select{
   background: transparent;
   border :white;
@@ -65,6 +81,9 @@ label{
 </style>
 <body>
 
+   
+
+    
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
   <div class="w3-display-topleft w3-padding-large w3-xlarge">
     
@@ -83,22 +102,23 @@ label{
 
     <br>
     
-    <input  type="text" name="input_text" placeholder="Click To Enter Text">
-    <br>
-    <hr class="w3-border-grey" style="margin:auto;width:40%">
+    <div id="content">
+    <textarea id="ta" cols="30" placeholder="Click To Enter Text"></textarea>
+    </div>
+
+   
     
-    
-    
+    <hr class="w3-border-grey" style="margin:auto;width:65%">
+     
     <button  class="button button1" value="Submit">Submit</button>
     </form>
     </div>
-
-
   </div>
   <div class="w3-display-bottomleft w3-padding-large">
     Powered by IBM Watson
   </div>
 </div>
-
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   	 <script src="my.js"></script>
 </body>
 </html>
