@@ -13,7 +13,7 @@ from wordclips.utils.inputparser import InputParser
     Home view
 '''
 def home(request):
-    t = get_template('wordclips/web.html')
+    t = get_template('wordclips/homepage.html')
     # Populate the context
     html = t.render(Context({}))
     return HttpResponse(html)
@@ -51,7 +51,7 @@ def search_in_database(request):
 
 
 
-    t = get_template('wordclips/page_2.html')
+    t = get_template('wordclips/resultpage.html')
     # html = t.render(Context({ 'clips': clips }))
     html = t.render(Context({}))
     return HttpResponse(html)
