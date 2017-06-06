@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+
+<title>Ventriloquy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('background.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+form{
+  vertical-align: center;
+}
+input[type=text]{
+  background: transparent;
+  border :none;
+  color: white;
+  text-align: center;
+  outline-color: grey;
+  margin-top: 4px;
+
+
+}
+
+textarea{
+ background: transparent;
+  border :none;
+  color: white;
+  text-align: center;
+  
+  margin-top: 4px;
+  resize: none;
+  outline:none;
+
+}
+select{
+  background: transparent;
+  border :white;
+  color: white;
+  text-align: center;
+  outline-color: grey;
+  border: 1px solid white;
+  padding: 1px;
+}
+select option {
+    background: #6b717a;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    
+    padding: 1px 13px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+label{
+	color: grey;
+}
+.button1 {
+    background: transparent; 
+    color: white; 
+    border: 1px solid white;
+    outline-color: grey;
+	margin-top: 4px;
+
+}
+</style>
+<body>
+
+   
+
+    
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    
+  </div>
+  <div class="w3-display-middle">
+    <h1 class="w3-jumbo w3-animate-top">VENTRILOQUY</h1>
+    
+    <div align="center">
+    <form action="test_2.html" method="get">
+    
+    <label for="Person">Select Speaker: </label>
+    <select name="Person" id="Person">
+    <option value="Obama">Obama</option>
+    <option value="Trump">Trump</option>
+    </select>
+
+    <br>
+    
+    <div id="content">
+    <textarea id="ta" cols="30" placeholder="Click To Enter Text"></textarea>
+    </div>
+
+   
+    
+    <hr class="w3-border-grey" style="margin:auto;width:65%">
+     
+    <button  class="button button1" value="Submit">Submit</button>
+    </form>
+    </div>
+  </div>
+  <div class="w3-display-bottomleft w3-padding-large">
+    Powered by IBM Watson
+  </div>
+</div>
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   	 <script src="my.js"></script>
+</body>
+</html>

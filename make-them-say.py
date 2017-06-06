@@ -69,6 +69,7 @@ def normalize(clip):
 
 	cmd = ["ffmpeg-normalize", "-fu",
 	  "--format", "mp4",
+	  "--no-prefix",
 	  clip]   
 
 	subprocess_call(cmd, False)

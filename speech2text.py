@@ -236,7 +236,7 @@ def main(argv) :
 	for t in threads:
 		t.join()
 
-	path = "clips/" + "obama" + "/"
+	path = "clips/" + person + "/"
 	subdirectories = os.listdir(path)
 	for subdir in subdirectories:
 		if not '.' in subdir:
