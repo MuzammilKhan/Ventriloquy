@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static "css/ui.css" %}">
+  </head>
+  <body>
+    <h1>OOPS!</h1>
+      <center>
+        <img src="{% static "img/confused-obama.gif" %}" style="width:304px;height:228px;">
+        <p>
+          ???
+        </p>
+        <p>
+          Obama does not understand the word: <b>{{ missing }}</b>. Try giving him something easier.
+        </p>
+        <p>
+          ???
+        </p>
+      </center>
+  </body>
+</html>
