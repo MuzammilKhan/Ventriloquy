@@ -5,6 +5,7 @@ import shutil
 import moviepy.editor as mp
 from moviepy.tools import subprocess_call
 from moviepy.config import get_setting
+from pydub import AudioSegment
 
 def concat(person, clips):
 	"""
@@ -83,7 +84,10 @@ def main(argv) :
 	words = phrase.split()
 
 	concat(sys.argv[1].lower(), words)
-	normalize("output/they-say.mp4")
+	#normalize("output/they-say.mp4")
+	audio = AudioSegment.from_file("output/they-say.mp4", "mp4") 
+	audio.export("output/they-say.wav", format="wav")
+
 	
 if __name__ == "__main__" :
 	main(sys.argv[1:])
