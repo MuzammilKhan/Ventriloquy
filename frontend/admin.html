@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<title>Ventriloquy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('background.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+form{
+  vertical-align: center;
+}
+input[type=text]{
+  background: transparent;
+  border :none;
+  color: white;
+  text-align: center;
+  outline-color: grey;
+  margin-top: 4px;
+
+}
+
+input[type=file]{
+  
+}
+select{
+  background: transparent;
+  border :white;
+  color: white;
+  text-align: center;
+  outline-color: grey;
+  border: 1px solid white;
+  padding: 1px;
+}
+select option {
+    background: #6b717a;
+}
+
+.custom-file-upload {
+    border: 1px solid white;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    text-decoration-color: white;
+    background-color: transparent;
+    margin-bottom: 1px;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    
+    padding: 1px 13px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+label{
+  color: grey;
+}
+
+img{
+  border: 2px solid white;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+
+.controls{
+  background-color: black;
+}
+.button1 {
+    background: transparent; 
+    color: white; 
+    border: 1px solid white;
+    outline-color: grey;
+    margin-top: 4px;
+
+}
+
+
+
+</style>
+<body>
+
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    
+  </div>
+  <div class="w3-display-middle">
+    <h1 class="w3-jumbo w3-animate-top">VENTRILOQUY</h1>
+    <h1 class="w3-xxlarge w3-animate-top" align="center">Admin File Upload</h1>
+    
+    <div align="center">
+      <form id="file-form" action="uploaded.html" method="POST">
+      <input type="file" id="file-select" name="photos[]" />
+      <button type="submit" id="upload-button">Upload</button>
+      <br>
+      <a href="test.html">Click here to go back to main page</a>
+    
+      </form>
+
+    
+    </div>
+
+
+  </div>
+  <div class="w3-display-bottomleft w3-padding-large">
+    Powered by IBM Watson
+  </div>
+</div>
+
+</body>
+<script type="text/javascript"> var form = document.getElementById('file-form');
+var fileSelect = document.getElementById('file-select');
+var uploadButton = document.getElementById('upload-button');
+
+form.onsubmit = function(event) {
+  event.preventDefault();
+
+  // Update button text.
+  uploadButton.innerHTML = 'Uploading...';
+
+  // The rest of the code will go here...
+  var files = fileSelect.files;
+
+  var formData = new FormData();
+  for (var i = 0; i < files.length; i++) {
+  var file = files[i];
+
+  // Check the file type.
+  if (!file.type.match('video.*')) {
+    continue;
+  }
+
+  // Add the file to the request.
+  formData.append('photos[]', file, file.name);
+}
+
+
+// Files
+formData.append(name, file, file.name);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'uploaded.html', true);
+  xhr.onload = function () {
+  if (xhr.status === 200) {
+    // File(s) uploaded.
+    uploadButton.innerHTML = 'Upload';
+  } else {
+    alert('An error occurred!');
+  }
+};
+xhr.send(formData);
+}</script>>
+</html>
