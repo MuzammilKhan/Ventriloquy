@@ -17,6 +17,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from mysite.views import hello, current_datetime, hours_ahead
 from wordclips.views import home, search_in_database, test
+from videoadmin.views import video_admin
+
+# Add this import
+from django.contrib.auth import views
+from videoadmin.forms import LoginForm
 
 '''
     Add URL to view function here.
@@ -24,11 +29,12 @@ from wordclips.views import home, search_in_database, test
 '''
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^hello/$', hello),
-    url(r'^time/$', current_datetime),
     url(r'^time/plus/(\d{1,2})/$', hours_ahead),
     url(r'^$', home),
     url(r'^home/$', home),
     url(r'^home/search/$', search_in_database),
-    url(r'^test/$', test)
+    url(r'^test/$', test),
+    url(r'^video_admin/$', video_admin),
+    url(r'^login/$', views.login, {'template_name': 'login.html', 'authentication_form': LoginForm}, name='login'),
+    url(r'^logout/$', views.logout, {'next_page': '/login'}),
 ]
