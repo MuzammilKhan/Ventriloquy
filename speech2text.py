@@ -97,7 +97,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 					get_good_timestamps(good_timestamps, data_file, float(self.threadID*audio_len + j) / 1000)
 				
 				t3 = time.time()
-				print "thread " + str(self.threadID) + ", j: " + str(j) + ", time: " + str(t3-t2)
+				print("thread " + str(self.threadID) + ", j: " + str(j) + ", time: " + str(t3-t2))
 
 		#clip audio into word clips
 		extract_words(sys.argv[2], good_timestamps, 0, self.threadID)
@@ -129,6 +129,7 @@ def ffmpeg_extract_subclip(filename, start, end, targetname=None):
 	  "-i", filename,
 	  "-ss", "%0.2f"%start,
 	  "-t", "%0.2f"%(end-start),
+	  "-c", "copy",
 	  targetname]
 	
 	subprocess_call(cmd, False)
@@ -311,7 +312,7 @@ def main(argv) :
 	remove_extra_clips() # threads may have created word duplicates because they have been embarassingly parallelized.
 	tlast = time.time()
 
-	print "Total elapsed time: " + str(tlast-t0)
+	print("Total elapsed time: " + str(tlast-t0))
 	# os.remove("/workspace")
 	# os.remove("/workspacets")
 
