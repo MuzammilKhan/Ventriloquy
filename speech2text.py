@@ -21,23 +21,35 @@ stt = SpeechToTextV1(	#Watson Speech To Text API login info
 	x_watson_learning_opt_out=True
 )
 
-#select number of threads
-num_threads = 1
-#the following will set the number of threads equal to the amount of logical processors on the machine
-if sys.platform == 'win32':
-	num_threads = ((int)(os.environ['NUMBER_OF_PROCESSORS']))
-else:
-	num_threads = ((int)(os.popen('grep -c cores /proc/cpuinfo').read()))
-print("Using " + str(num_threads) + " threads...")
-
+num_threads = 0 # will be set dynamically by detectCPUs()
 special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"', '.'] # used later to detect special characters
-
 basename = ""
 person = ""
 
 ######################################################################
 # classes and functions
 ######################################################################
+
+def detectCPUs():
+    """
+    Detects the number of CPUs on a system. Credit: https://github.com/nunoplopes/alive/blob/master/tests/lit/lit/util.py
+    """
+    # Linux, Unix and MacOS:
+    if hasattr(os, "sysconf"):
+        if "SC_NPROCESSORS_ONLN" in os.sysconf_names:
+            # Linux & Unix:
+            ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
+            if isinstance(ncpus, int) and ncpus > 0:
+                return ncpus
+        else: # OSX:
+            return int(capture(['sysctl', '-n', 'hw.ncpu']))
+    # Windows:
+    if "NUMBER_OF_PROCESSORS" in os.environ:
+        ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
+        if ncpus > 0:
+            return ncpus
+    return 1 # Default
+
 class myThread (threading.Thread): #used this as guide: https://www.tutorialspoint.com/python3/python_multithreading.htm
 	def __init__(self, threadID, audio, start_time):
 		threading.Thread.__init__(self)
@@ -72,7 +84,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 				with open('speech-snippets/' + basename + '_' + str(i) + '.json', 'w') as data_file:
 					json.dump(stt_result, data_file, indent=1)
 				with open('speech-snippets/' + basename + '_' + str(i) + '.json') as data_file:
-					good_timestamps = prune_wrong_recog(None, data_file, float(self.start_time)/1000, self.threadID)
+					good_timestamps = get_good_timestamps(None, data_file, float(self.start_time)/1000, self.threadID)
 
 				#clip audio into word clips
 				extract_words(sys.argv[2], good_timestamps, i/1000, self.threadID)
@@ -94,7 +106,7 @@ def ffmpeg_extract_subclip(filename, start, end, targetname=None):
 		nothing
 	"""
 	""" 
-		Note: This function is from the moviepy library but it was buggy so I fixed it here"""
+		Note: This function is from the moviepy library but it was buggy so we fixed it here"""
 	name,ext = os.path.splitext(filename)
 	if not targetname:
 		T1, T2 = [int(1000*t) for t in [start, end]]
@@ -108,37 +120,64 @@ def ffmpeg_extract_subclip(filename, start, end, targetname=None):
 	
 	subprocess_call(cmd, False)
 
-def prune_wrong_recog( script, data_file, offset, ID ):
+def is_new_clip_better(word, new_s, new_e, old_s, old_e):
+	"""
+	Compares two clips, seeing which one is better.
+	For now, this function simply considers "better" to be "longer"
+
+	Parameters
+	--------------------
+		word				-- word being compared
+		new_s				-- start time of new word
+		new_e 				-- end time of new word
+		old_s 				-- start time of old word
+		old_e 				-- end time of old word
+
+	Returns
+	--------------------
+		Bool				--	True if new clip is better than old one. False otherwise
+	"""
+	new_len = new_e - new_s
+	old_len = old_e - old_s
+	return True if (new_len > old_len) else False
+
+def get_good_timestamps( script, data_file, offset, ID ):
 	"""
 	Returns the correctly recognized words and their timestamps.
 
 	Parameters
 	--------------------
-		script			-- 	Array of transcript of a speech. This is assumed to be completely correct.
-		datafile		-- 	JSON file of Watson's generated text, containing 
-						word guesses, start and end times, confidence levels, etc.
-						This will most likely have some incorrect speech-to-text translations.
-		offset			-- The amount by which we change the timestamp
+		script				-- 	Array of transcript of a speech. This is assumed to be completely correct.
+		datafile			-- 	JSON file of Watson's generated text, containing 
+							word guesses, start and end times, confidence levels, etc.
+							This will most likely have some incorrect speech-to-text translations.
+		offset				-- The amount by which we change the timestamp
 
 	Returns
 	--------------------
-		good_timestamps	--	dict of words to timestamps, of format: 
-						(word, (start_time, end_time)) --> (string, (int, int)) 
-						These will be completely accurate.
+		good_timestamps		--	dict of words to timestamps, of format: 
+							'word': (start_time, end_time) --> string: (double, double)
 	"""
 
-	good_timestamps = []
+	good_timestamps = {}
 	data = json.load(data_file)
 
 	for res in data['results']:
 		for word_alternatives in res['word_alternatives']:
-			word = word_alternatives['alternatives'][0]
-			if word['confidence'] > 0.95:
-				start_time = word_alternatives['start_time'] + offset
-				end_time = word_alternatives['end_time'] + offset
-				pred_word = word['word']
-				tup = (pred_word, start_time, end_time) 
-				good_timestamps.append(tup)
+			pred_word = word_alternatives['alternatives'][0]
+
+			if pred_word['confidence'] > 0.95:
+				start = word_alternatives['start_time']
+				end = word_alternatives['end_time']
+				word = pred_word['word']
+
+				if good_timestamps.has_key(word):
+					prev_word_start, prev_word_end = good_timestamps[word]
+					if not is_new_clip_better(word, start, end, prev_word_start, prev_word_end):
+						continue
+				
+				tup = (start + offset, end + offset) 
+				good_timestamps[word] = tup
 
 	return good_timestamps
 
@@ -158,7 +197,7 @@ def assure_path_exists(path):
 	if not os.path.exists(dir):
 		os.makedirs(dir)
 
-def extract_words(orig_clip, good_timestamps, seconds, ID):
+def extract_words(orig_clip, good_timestamps, offset, ID):
 	"""
 	Extract word clips from the input audio clip.
 
@@ -166,18 +205,16 @@ def extract_words(orig_clip, good_timestamps, seconds, ID):
 	--------------------
 		orig_clip			-- 	The input audio clip that we want to extract word clips from
 		good_timestamps		-- 	The timestamps of the words
-		seconds				--  How many seconds have passed
+		offset				--  How many seconds have passed
 
 	Returns
 	--------------------
 		nothing 
 	"""
-	for cur, nxt in zip(good_timestamps, good_timestamps[1:]+[(None, float("inf"), None)]):
-		word = cur[0]
-		start =  seconds + cur[1]
-		end =  seconds + cur[2]
-		nxt_start =  seconds + nxt[1]
-		
+	for word, val in good_timestamps.iteritems():
+		start = val[0] + offset
+		end = val[1] + offset
+
 		#check for special chars b/c windows doesn't allow these in filenames
 		no_special_char = True
 		for char in special_chars:
@@ -191,6 +228,23 @@ def extract_words(orig_clip, good_timestamps, seconds, ID):
 			num_clips = len(glob.glob(path + "*")) # get num of clips already in folder, to avoid overwiting
 			ffmpeg_extract_subclip(orig_clip, start, end, targetname=(path + str(num_clips + 1) + ".mp4"))
 
+def remove_extra_clips():
+	path = "clips/" + person + "/"
+	subdirectories = os.listdir(path)
+	for subdir in subdirectories:
+		if not '.' in subdir:
+			files = os.listdir(path + subdir)
+			maximum = 0
+			biggest_file_path = ""
+			for file in files:
+				path_to_file = path + subdir + "/" + file
+				if maximum < len(file):
+					maximum = len(file)
+					biggest_file_path = path_to_file
+				else:
+					os.remove(path + subdir + "/" + file)
+			os.rename(biggest_file_path, path + subdir + "/1.mp4")
+
 ######################################################################
 # main
 ######################################################################
@@ -199,6 +253,9 @@ def main(argv) :
 	if(len(sys.argv) != 3): #TODO: change this to allow input transcript
 		print('Usage: speech2text.py person inputfile')
 		sys.exit(2)
+
+	num_threads = detectCPUs()
+	print("Using " + str(num_threads) + " threads...")
 
 	#modifying global variables
 	global basename
@@ -236,21 +293,7 @@ def main(argv) :
 	for t in threads:
 		t.join()
 
-	path = "clips/" + person + "/"
-	subdirectories = os.listdir(path)
-	for subdir in subdirectories:
-		if not '.' in subdir:
-			files = os.listdir(path + subdir)
-			maximum = 0
-			biggest_file_path = ""
-			for file in files:
-				path_to_file = path + subdir + "/" + file
-				if maximum < len(file):
-					maximum = len(file)
-					biggest_file_path = path_to_file
-				else:
-					os.remove(path + subdir + "/" + file)
-			os.rename(biggest_file_path, path + subdir + "/1.mp4")
+	remove_extra_clips() # threads may have created word duplicates because they have been embarassingly parallelized.
 
 if __name__ == "__main__" :
 	main(sys.argv[1:])

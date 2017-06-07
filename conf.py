@@ -1,5 +1,5 @@
 #Configuration file 
 
 #Watson Login Info
-username = "a03b2687-f066-473e-b192-00f21f80d63d"
-password = "VnronvCCuIpJ"
+username = "bdb6bf5c-6f16-48a8-b69f-746fc8f0416b"
+password = "ryPvMSq1W7yC"
