@@ -39,7 +39,7 @@ def concat(person, clips):
 		try:
 			subprocess_call(cmd, False, False)
 		except:
-			print("Oops! Obama doesn't know the word: " + clip + " :(")
+			print("Oops!" + person + "doesn't know the word: " + clip + " :(")
 			sys.exit()
 		
 		if first:
