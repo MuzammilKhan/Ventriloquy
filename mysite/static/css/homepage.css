@@ -8,7 +8,7 @@ body, html {
     background: url( '../img/bg.jpg' );
     min-height: 100%;
     background-position: center;
-    background-size: 100%;
+    background-size: cover;
 }
 form{
   vertical-align: center;
