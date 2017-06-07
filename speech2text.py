@@ -56,7 +56,6 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 		self.start_time = start_time
 
 	def run(self):
-		t1 = time.time()
 		audio_len = len(self.audio)
 		increment_by = 60000
 		good_timestamps = {}
@@ -70,10 +69,9 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 
 			path = "workspace/" + start + "-" + end + ".wav"
 			audio_chunk.export(path, format="wav")
-		t2 = time.time()
-		print "thread " + str(self.threadID )+ " t2: " + str(t2-t1)
 
 		for j in range(self.threadID, audio_len, increment_by):
+			t2 = time.time()
 			end_time = audio_len if(j + 60000 > audio_len) else j+60000
 			start = str("%d" % (float(self.threadID*audio_len + j) / 1000))
 			end = str("%d" % (float(self.threadID*audio_len + end_time) / 1000))
@@ -96,10 +94,10 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 				with open('speech-snippets/' + start + "-" + end + '.json', 'w') as data_file:
 					json.dump(stt_result, data_file, indent=1)
 				with open('speech-snippets/' + start + "-" + end + '.json') as data_file:
-					get_good_timestamps(good_timestamps, data_file, float(self.start_time)/1000)
-		t3 = time.time()
-
-		print "thread " + str(self.threadID) + " t3: " + str(t3-t2)
+					get_good_timestamps(good_timestamps, data_file, float(self.threadID*audio_len + j) / 1000)
+				
+				t3 = time.time()
+				print "thread " + str(self.threadID) + ", j: " + str(j) + ", time: " + str(t3-t2)
 
 		#clip audio into word clips
 		extract_words(sys.argv[2], good_timestamps, 0, self.threadID)
