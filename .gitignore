@@ -89,3 +89,8 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+
+
+# Redis file
+*.rdb
