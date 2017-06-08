@@ -14,6 +14,7 @@ from videoadmin.models import CeleryTask
 from django.conf import settings
 
 from videoadmin.tasks import UploadTask
+from videoadmin.tasks import get_task_status
 
 
 # Create your views here.
@@ -34,7 +35,17 @@ def video_admin(request):
 
 
     #
+    ol = CeleryTask.objects.filter(celery_task_status=u'PROGRESS')
+    for o in ol :
+        if get_task_status(o.celery_task_id)['status'] == u'SUCCESS':
+            o.celery_task_status=u'SUCCESS'
+            o.save()
 
+
+    task_list = []
+    ol = CeleryTask.objects.all()[0:10]
+    for o in ol:
+        task_list.append(o)
 
 
     # Construct the list contains path of clips
@@ -48,11 +59,18 @@ def video_admin(request):
         clip_paths.append(o)
         # print(clip_path)
 
-    context = { 'clip_paths' : clip_paths, 'MEDIA_URL' : settings.MEDIA_URL }
+    context = { 'clip_paths' : clip_paths,
+                'MEDIA_URL' : settings.MEDIA_URL,
+                'task_list' : task_list, }
     return render(request, 'video_admin.html', context)
 
 
 def uploaded(request):
+
+
+    t = UploadTask.delay("Hello World")
+    celery_task = CeleryTask(celery_task_id=t.id, celery_task_status = u'PROGRESS')
+    celery_task.save()
 
     context = {}
 
