@@ -67,7 +67,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 			start = str("%d" % (float(self.threadID*audio_len + i) / 1000))
 			end = str("%d" % (float(self.threadID*audio_len + end_time) / 1000))
 
-			path = "workspace/" + start + "-" + end + ".wav"
+			path = "workspace/" + basename + "_" + start + "-" + end + ".wav"
 			audio_chunk.export(path, format="wav")
 
 		for j in range(self.threadID, audio_len, increment_by):
@@ -75,7 +75,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 			end_time = audio_len if(j + 60000 > audio_len) else j+60000
 			start = str("%d" % (float(self.threadID*audio_len + j) / 1000))
 			end = str("%d" % (float(self.threadID*audio_len + end_time) / 1000))
-			path = "workspace/" + start + "-" + end + ".wav"
+			path = "workspace/" + basename + "_" + start + "-" + end + ".wav"
 
 			#Use Watson Speech API on audio chunk
 			with open(path, 'rb') as audio:
@@ -91,16 +91,20 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 													word_alternatives_threshold=0.0 )
 				
 				#dump response to a json file if we want to check it later then open it
-				with open('speech-snippets/' + start + "-" + end + '.json', 'w') as data_file:
+				with open('speech-snippets/' + basename + "_" + start + "-" + end + '.json', 'w') as data_file:
 					json.dump(stt_result, data_file, indent=1)
-				with open('speech-snippets/' + start + "-" + end + '.json') as data_file:
+				with open('speech-snippets/' + basename + "_" + start + "-" + end + '.json') as data_file:
 					get_good_timestamps(good_timestamps, data_file, float(self.threadID*audio_len + j) / 1000)
 				
 				t3 = time.time()
 				print("thread " + str(self.threadID) + ", j: " + str(j) + ", time: " + str(t3-t2))
 
+		t4 = time.time()
+		print("thread " + str(self.threadID) + " starting to extract_words")
 		#clip audio into word clips
 		extract_words(sys.argv[2], good_timestamps, 0, self.threadID)
+		t5 = time.time()
+		print("thread " + str(self.threadID) + " finished extract_words. time: " + str(t5-t4))
 
 def ffmpeg_extract_subclip(filename, start, end, targetname=None):
 	"""
@@ -299,7 +303,6 @@ def main(argv) :
 	for i in range(0,num_threads): 
 		start_time = i * clip_len
 		end = end_time if (i == num_threads -1) else (i+1) * clip_len -1
-		# print start_time, end
 
 		audio_chunk = audio_init[start_time: end]
 		thread = myThread(i, audio_chunk, start_time)
