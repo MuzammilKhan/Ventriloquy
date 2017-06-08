@@ -130,11 +130,11 @@ def ffmpeg_extract_subclip(filename, start, end, targetname=None):
 		targetname = name+ "%sSUB%d_%d.%s"(name, T1, T2, ext)
 	
 	cmd = [get_setting("FFMPEG_BINARY"), "-y",
-	  "-i", filename,
-	  "-ss", "%0.2f"%start,
-	  "-t", "%0.2f"%(end-start),
-	  "-c", "copy",
-	  targetname]
+		"-ss", "%0.2f"%start,
+	  	"-t", "%0.2f"%(end-start),
+	  	"-i", filename,
+		"-c:v", "libx264", "-x264opts", "keyint=1:min-keyint=1:scenecut=-1",
+	  	targetname]
 	
 	subprocess_call(cmd, False)
 

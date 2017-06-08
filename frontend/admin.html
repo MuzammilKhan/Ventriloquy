@@ -27,6 +27,9 @@ input[type=text]{
 
 }
 
+input[type=file]{
+  
+}
 select{
   background: transparent;
   border :white;
@@ -38,6 +41,16 @@ select{
 }
 select option {
     background: #6b717a;
+}
+
+.custom-file-upload {
+    border: 1px solid white;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    text-decoration-color: white;
+    background-color: transparent;
+    margin-bottom: 1px;
 }
 .button {
     background-color: #4CAF50; /* Green */
@@ -61,6 +74,8 @@ img{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
+
+
 .controls{
   background-color: black;
 }
@@ -72,6 +87,9 @@ img{
     margin-top: 4px;
 
 }
+
+
+
 </style>
 <body>
 
@@ -81,19 +99,18 @@ img{
   </div>
   <div class="w3-display-middle">
     <h1 class="w3-jumbo w3-animate-top">VENTRILOQUY</h1>
-    <h1 class="w3-xxlarge w3-animate-top" align="center">OOPS!!!</h1>
+    <h1 class="w3-xxlarge w3-animate-top" align="center">Admin File Upload</h1>
     
     <div align="center">
-    <form action="test.html" method="get">
+      <form id="file-form" action="uploaded.html" method="POST">
+      <input type="file" id="file-select" name="photos[]" />
+      <button type="submit" id="upload-button">Upload</button>
+      <br>
+      <a href="test.html">Click here to go back to main page</a>
     
-    <img src="confused-obama.gif" style="width:304px;height:228px;">
-    <p>
-          Obama does not understand the word: <b>{{ missing }}</b>. Try giving him something easier.
-    </p>
-    <hr class="w3-border-grey" style="margin:auto;width:65%">
+      </form>
+
     
-    <button  class="button button1" value="Back">Go Back!</button>
-    </form>
     </div>
 
 
@@ -104,4 +121,46 @@ img{
 </div>
 
 </body>
+<script type="text/javascript"> var form = document.getElementById('file-form');
+var fileSelect = document.getElementById('file-select');
+var uploadButton = document.getElementById('upload-button');
+
+form.onsubmit = function(event) {
+  event.preventDefault();
+
+  // Update button text.
+  uploadButton.innerHTML = 'Uploading...';
+
+  // The rest of the code will go here...
+  var files = fileSelect.files;
+
+  var formData = new FormData();
+  for (var i = 0; i < files.length; i++) {
+  var file = files[i];
+
+  // Check the file type.
+  if (!file.type.match('video.*')) {
+    continue;
+  }
+
+  // Add the file to the request.
+  formData.append('photos[]', file, file.name);
+}
+
+
+// Files
+formData.append(name, file, file.name);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'uploaded.html', true);
+  xhr.onload = function () {
+  if (xhr.status === 200) {
+    // File(s) uploaded.
+    uploadButton.innerHTML = 'Upload';
+  } else {
+    alert('An error occurred!');
+  }
+};
+xhr.send(formData);
+}</script>>
 </html>
