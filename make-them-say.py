@@ -73,7 +73,8 @@ def normalize(clip):
 	  clip]   
 
 	subprocess_call(cmd, False)
-
+	if os.path.exists("output/they-say.mp4"):
+		os.remove("output/they-say.mp4")
 	os.rename("output/normalized-tmp.mp4", "output/they-say.mp4")
 	os.remove("output/tmp.mp4")
 
@@ -87,6 +88,7 @@ def main(argv) :
 
 	concat(sys.argv[1].lower(), words)
 	normalize("output/tmp.mp4")
-	
+	audio = AudioSegment.from_file("output/they-say.mp4", "mp4")
+	audio.export("output/they-say.wav", "wav")
 if __name__ == "__main__" :
 	main(sys.argv[1:])
