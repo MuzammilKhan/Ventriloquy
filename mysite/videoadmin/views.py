@@ -15,7 +15,7 @@ from django.conf import settings
 
 from videoadmin.tasks import UploadTask
 from videoadmin.tasks import get_task_status
-
+from videoadmin.tasks import process
 
 # Create your views here.
 # this login required decorator is to not allow to any
@@ -67,10 +67,16 @@ def video_admin(request):
 
 def uploaded(request):
 
+    # Obtain the uploaded video
 
-    t = UploadTask.delay("Hello World")
-    celery_task = CeleryTask(celery_task_id=t.id, celery_task_status = u'PROGRESS')
-    celery_task.save()
+
+
+
+    # t = UploadTask.delay("Hello World")
+    # t = process.delay('obama', '/some/path')
+
+    # celery_task = CeleryTask(celery_task_id=t.id, celery_task_status = u'PROGRESS')
+    # celery_task.save()
 
     context = {}
 
