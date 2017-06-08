@@ -3,6 +3,9 @@
 *.wav
 *.mp4
 
+
+conf.py
+
 # Django Recommended
 *.egg-info
 *.pot
@@ -95,3 +98,6 @@ target/
 
 # Redis file
 *.rdb
+
+# media file
+speech-snippets/
