@@ -17,6 +17,9 @@ from videoadmin.tasks import UploadTask
 from videoadmin.tasks import get_task_status
 from videoadmin.tasks import process
 
+from django.core.files.storage import FileSystemStorage
+
+
 # Create your views here.
 # this login required decorator is to not allow to any
 # view without authenticating
@@ -66,10 +69,19 @@ def video_admin(request):
 
 
 def uploaded(request):
+    context = {}
+
 
     # Obtain the uploaded video
 
-
+    if request.method == 'POST' and request.FILES['payload']:
+        myfile = request.FILES['payload']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'uploaded.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
 
 
     # t = UploadTask.delay("Hello World")
@@ -77,7 +89,5 @@ def uploaded(request):
 
     # celery_task = CeleryTask(celery_task_id=t.id, celery_task_status = u'PROGRESS')
     # celery_task.save()
-
-    context = {}
 
     return render(request, 'uploaded.html', context)
