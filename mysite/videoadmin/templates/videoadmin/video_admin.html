@@ -5,19 +5,20 @@
   <div class="row">
 
   <div class="jumbotron">
-    <h1>Hello</h1>
+    <h1>Search the clips in the database:</h1>
 
     <p>
       {% for c in clip_paths %}
       <div class="gallery">
         <video width="180" controls>
-        <source src="{{c}}" type="audio/wav">
+        <source src="{{ MEDIA_URL }}{{ c.name }}/1.wav" type="audio/wav">
         <!-- <source src="mov_bbb.ogg" type="video/ogg"> -->
         Your browser does not support HTML5 video.
         </video>
-        <div class="desc">Nothing for now.</div>
+        <div class="desc">{{ c.name }}</div>
       </div>
       {% endfor %}
+      <!-- TODO Add handler if nothing is in the DB  -->
     </p>
 
 

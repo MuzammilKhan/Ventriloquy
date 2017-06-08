@@ -37,8 +37,8 @@ def video_admin(request):
     for o in ol:
         # construct the full path
         clip_path = settings.MEDIA_URL + o.name + "/1.wav"
-        clip_paths.append(clip_path)
+        clip_paths.append(o)
         # print(clip_path)
 
-    context = { 'clip_paths' : clip_paths }
+    context = { 'clip_paths' : clip_paths, 'MEDIA_URL' : settings.MEDIA_URL }
     return render(request, 'video_admin.html', context)
