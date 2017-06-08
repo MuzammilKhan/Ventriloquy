@@ -3,9 +3,6 @@
 *.wav
 *.mp4
 
-
-conf.py
-
 # Django Recommended
 *.egg-info
 *.pot
