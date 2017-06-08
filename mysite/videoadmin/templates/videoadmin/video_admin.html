@@ -2,12 +2,40 @@
 
 {% block content %}
 <div class="container">
-<div class="row">
+  <div class="row">
 
-<div class="jumbotron">
-  <h1>Hello</h1>
-  <p>You are on your Dashboard</p>
-</div>
-</div>
+  <div class="jumbotron">
+    <h1>Search the clips in the database:</h1>
+
+    <p>
+      {% for c in clip_paths %}
+      <div class="gallery">
+        <video width="180" controls>
+        <source src="{{ MEDIA_URL }}{{ c.name }}/1.wav" type="audio/wav">
+        <!-- <source src="mov_bbb.ogg" type="video/ogg"> -->
+        Your browser does not support HTML5 video.
+        </video>
+        <div class="desc">{{ c.name }}</div>
+      </div>
+      {% endfor %}
+      <!-- TODO Add handler if nothing is in the DB  -->
+    </p>
+
+
+
+    <form action="" method="get">
+    <div id="content">
+    <textarea name="keyword" id="ta" cols="30" placeholder="Click To Enter Text"></textarea>
+    </div>
+
+    <hr class="w3-border-grey" style="margin:auto;width:65%">
+
+    <button  class="button button1" value="Search">Search</button>
+    </form>
+
+
+
+  </div>
+  </div>
 </div>
 {% endblock %}

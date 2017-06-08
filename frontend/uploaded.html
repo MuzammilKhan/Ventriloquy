@@ -27,6 +27,9 @@ input[type=text]{
 
 }
 
+input[type=file]{
+  display: none;
+}
 select{
   background: transparent;
   border :white;
@@ -38,6 +41,16 @@ select{
 }
 select option {
     background: #6b717a;
+}
+
+.custom-file-upload {
+    border: 1px solid white;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    text-decoration-color: white;
+    background-color: transparent;
+    margin-bottom: 1px;
 }
 .button {
     background-color: #4CAF50; /* Green */
@@ -61,6 +74,17 @@ img{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
+
+#myProgress p{
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: #4CAF50;
+}
 .controls{
   background-color: black;
 }
@@ -72,6 +96,27 @@ img{
     margin-top: 4px;
 
 }
+
+
+#progress p
+{
+  display: block;
+  width: 240px;
+  padding: 2px 5px;
+  margin: 2px 0;
+  border: 1px inset #446;
+  border-radius: 5px;
+}
+#progress p.success
+{
+  background: #0c0 none 0 0 no-repeat;
+}
+
+#progress p.failed
+{
+  background: #c00 none 0 0 no-repeat;
+}
+
 </style>
 <body>
 
@@ -81,15 +126,10 @@ img{
   </div>
   <div class="w3-display-middle">
     <h1 class="w3-jumbo w3-animate-top">VENTRILOQUY</h1>
-    <h1 class="w3-xxlarge w3-animate-top" align="center">OOPS!!!</h1>
+    <h1 class="w3-xxlarge w3-animate-top" align="center">Uploaded</h1>
     
     <div align="center">
-    <form action="test.html" method="get">
-    
-    <img src="confused-obama.gif" style="width:304px;height:228px;">
-    <p>
-          Obama does not understand the word: <b>{{ missing }}</b>. Try giving him something easier.
-    </p>
+    <form action="admin.html" method="post">
     <hr class="w3-border-grey" style="margin:auto;width:65%">
     
     <button  class="button button1" value="Back">Go Back!</button>

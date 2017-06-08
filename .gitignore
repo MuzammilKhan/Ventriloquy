@@ -1,7 +1,7 @@
 ## Ventriloquy related
 ### clips
-mysite/wordclips/clips
 *.wav
+*.mp4
 
 # Django Recommended
 *.egg-info
@@ -21,6 +21,7 @@ tests/report/
 # Sensitive Data
 credentials.py
 credentials.pyc
+conf.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
