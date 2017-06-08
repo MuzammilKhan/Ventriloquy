@@ -51,7 +51,7 @@ def concat(person, clips):
 	  "-i", concat_param,
 	  "-c", "copy",
 	  "-bsf:a", "aac_adtstoasc",
-	  "output/they-say.mp4"]
+	  "output/tmp.mp4"]
 	
 	subprocess_call(fcmd, False)
 
@@ -69,10 +69,12 @@ def normalize(clip):
 
 	cmd = ["ffmpeg-normalize", "-fu",
 	  "--format", "mp4",
-	  "--no-prefix",
 	  clip]   
 
 	subprocess_call(cmd, False)
+
+	os.rename("output/normalized-tmp.mp4", "output/they-say.mp4")
+	os.remove("output/tmp.mp4")
 
 def main(argv) :
 	if(len(sys.argv) != 3): 
@@ -83,7 +85,7 @@ def main(argv) :
 	words = phrase.split()
 
 	concat(sys.argv[1].lower(), words)
-	normalize("output/they-say.mp4")
+	normalize("output/tmp.mp4")
 	
 if __name__ == "__main__" :
 	main(sys.argv[1:])
