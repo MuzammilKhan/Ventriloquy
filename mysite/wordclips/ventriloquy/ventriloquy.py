@@ -6,6 +6,8 @@ from pydub import AudioSegment
 import wordclips
 from wordclips.models import Wordclip
 
+from django.conf import settings
+
 # def find(name, path):
 #     for root, dirs, files in os.walk(path):
 #         if name in files:
@@ -96,14 +98,15 @@ class Ventriloquy:
 			else:
 				# For now it only word with local folders
 				# TODO: graceful fail over
-				clip_path = APP_ROOT + "/clips/" + word + "/1.wav"
+				clip_path = settings.MEDIA_ROOT + '/' + word + "/1.wav"
+				print(clip_path)
 
 				# check if the clip exists
 				if os.path.isfile(clip_path):
 					audio = AudioSegment.from_wav(clip_path)
 					combined_audio += audio + AudioSegment.silent(duration=50)
-				elif os.path.isfile(APP_ROOT + "/clips/" + word.lower() + "/1.wav"):
-					audio = AudioSegment.from_wav(APP_ROOT + "/clips/" + word.lower() + "/1.wav")
+				elif os.path.isfile(settings.MEDIA_ROOT + '/' + word.lower() + "/1.wav"):
+					audio = AudioSegment.from_wav(settings.MEDIA_ROOT + '/' + word.lower() + "/1.wav")
 					combined_audio += audio + AudioSegment.silent(duration=50)
 				else:
 					# Find to find the current word in the db

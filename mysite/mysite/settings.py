@@ -82,6 +82,11 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates').replace('\\','/'),
 )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/clips')
+MEDIA_URL = '/media/clips/'
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 ALLOWED_HOSTS = ['ventriloquy130.herokuapp.com']

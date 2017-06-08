@@ -14,11 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from django.conf.urls.static import static
+from django.conf import settings
 from django.contrib import admin
 from mysite.views import hello, current_datetime, hours_ahead
 from wordclips.views import home, search_in_database, test
 from videoadmin.views import video_admin
-
 # Add this import
 from django.contrib.auth import views
 from videoadmin.forms import LoginForm
@@ -38,3 +39,5 @@ urlpatterns = [
     url(r'^login/$', views.login, {'template_name': 'login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', views.logout, {'next_page': '/login'}),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
