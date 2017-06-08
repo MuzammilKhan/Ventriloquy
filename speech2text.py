@@ -17,7 +17,7 @@ import time
 ######################################################################
 
 stt = SpeechToTextV1(	#Watson Speech To Text API login info
-	username = conf.username, 
+	username = conf.username,
 	password = conf.password,
 	x_watson_learning_opt_out=True
 )
@@ -63,7 +63,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 		for i in range(self.threadID, audio_len, increment_by):
 			end_time = audio_len if(i + 60000 > audio_len) else i+60000
 			audio_chunk = self.audio[i:end_time]
-			
+
 			start = str("%d" % (float(self.threadID*audio_len + i) / 1000))
 			end = str("%d" % (float(self.threadID*audio_len + end_time) / 1000))
 
@@ -83,19 +83,19 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 				stt.get_model('en-US_BroadbandModel')
 
 				#these parameters above can be altered to effect the output of the api
-				stt_result = stt.recognize( audio, content_type='audio/wav', 
-													timestamps=True, 
-													word_confidence=True, 
-													continuous=True, 
+				stt_result = stt.recognize( audio, content_type='audio/wav',
+													timestamps=True,
+													word_confidence=True,
+													continuous=True,
 													profanity_filter=False,
 													word_alternatives_threshold=0.0 )
-				
+
 				#dump response to a json file if we want to check it later then open it
 				with open('speech-snippets/' + basename + "_" + start + "-" + end + '.json', 'w') as data_file:
 					json.dump(stt_result, data_file, indent=1)
 				with open('speech-snippets/' + basename + "_" + start + "-" + end + '.json') as data_file:
 					get_good_timestamps(good_timestamps, data_file, float(self.threadID*audio_len + j) / 1000)
-				
+
 				t3 = time.time()
 				print("thread " + str(self.threadID) + ", j: " + str(j) + ", time: " + str(t3-t2))
 
@@ -109,7 +109,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 def ffmpeg_extract_subclip(filename, start, end, targetname=None):
 	"""
 	Creates a new video file playing video file "filename" between
-		the times "start" and "end". 
+		the times "start" and "end".
 
 	Parameters
 	--------------------
@@ -122,20 +122,20 @@ def ffmpeg_extract_subclip(filename, start, end, targetname=None):
 	--------------------
 		nothing
 	"""
-	""" 
+	"""
 		Note: This function is from the moviepy library but it was buggy so we fixed it here"""
 	name,ext = os.path.splitext(filename)
 	if not targetname:
 		T1, T2 = [int(1000*t) for t in [start, end]]
 		targetname = name+ "%sSUB%d_%d.%s"(name, T1, T2, ext)
-	
+
 	cmd = [get_setting("FFMPEG_BINARY"), "-y",
 		"-ss", "%0.2f"%start,
 	  	"-t", "%0.2f"%(end-start),
 	  	"-i", filename,
 		"-c:v", "libx264", "-x264opts", "keyint=1:min-keyint=1:scenecut=-1",
 	  	targetname]
-	
+
 	subprocess_call(cmd, False)
 
 def is_new_clip_better(word, new_s, new_e, old_s, old_e):
@@ -167,7 +167,7 @@ def get_good_timestamps( good_timestamps, data_file, offset):
 	--------------------
 		good_timestamps		-- 	a dict of timestamps that are highly accurate.
 							'word': (start_time, end_time) --> string: (double, double)
-		datafile			-- 	JSON file of Watson's generated text, containing 
+		datafile			-- 	JSON file of Watson's generated text, containing
 							word guesses, start and end times, confidence levels, etc.
 							This will most likely have some incorrect speech-to-text translations.
 		offset				-- The amount by which we change the timestamp
@@ -193,8 +193,8 @@ def get_good_timestamps( good_timestamps, data_file, offset):
 						prev_word_start, prev_word_end = good_timestamps[word]
 						if not is_new_clip_better(word, start, end, prev_word_start, prev_word_end):
 							continue
-					
-					tup = (start + offset, end + offset) 
+
+					tup = (start + offset, end + offset)
 					good_timestamps[word] = tup
 
 def assure_path_exists(path):
@@ -225,7 +225,7 @@ def extract_words(orig_clip, good_timestamps, offset, ID):
 
 	Returns
 	--------------------
-		nothing 
+		nothing
 	"""
 	for word, val in good_timestamps.items():
 		start = val[0] + offset
@@ -273,6 +273,10 @@ def remove_extra_clips():
 def main(argv) :
 	t0 = time.time()
 
+	print(sys.argv[0])
+	print(sys.argv[1])
+	print(sys.argv[2])
+
 	if(len(sys.argv) != 3): #TODO: change this to allow input transcript
 		print('Usage: speech2text.py person inputfile')
 		sys.exit(2)
@@ -288,8 +292,12 @@ def main(argv) :
 	#open input file and convert to flac (assume  test file in same directory for now)
 	basename = os.path.splitext(os.path.basename(sys.argv[2]))[0]
 	file_ext = os.path.splitext(sys.argv[2])[1][1:]
+
+	print(basename)
+	print(file_ext)
+
 	audio_init = AudioSegment.from_file(sys.argv[2], file_ext) #assuming input files are all supported by ffmpeg
-	audio_chunk = AudioSegment.silent(duration=0) 
+	audio_chunk = AudioSegment.silent(duration=0)
 	end_time = len(audio_init)
 	person = sys.argv[1].lower()
 
@@ -304,7 +312,7 @@ def main(argv) :
 	start_time = 0
 	end = 0
 
-	for i in range(0,num_threads): 
+	for i in range(0,num_threads):
 		start_time = i * clip_len
 		end = end_time if (i == num_threads -1) else (i+1) * clip_len -1
 

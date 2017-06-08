@@ -20,6 +20,7 @@ from django.contrib import admin
 from mysite.views import hello, current_datetime, hours_ahead
 from wordclips.views import home, search_in_database, test
 from videoadmin.views import video_admin
+from videoadmin.views import uploaded
 # Add this import
 from django.contrib.auth import views
 from videoadmin.forms import LoginForm
@@ -35,9 +36,10 @@ urlpatterns = [
     url(r'^home/$', home),
     url(r'^home/search/$', search_in_database),
     url(r'^test/$', test),
-    url(r'^video_admin/$', video_admin),
+    url(r'^video_admin/$', video_admin, name='video_admin'),
     url(r'^login/$', views.login, {'template_name': 'login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', views.logout, {'next_page': '/login'}),
+    url(r'^video_admin/uploaded/$', uploaded, name='uploaded'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

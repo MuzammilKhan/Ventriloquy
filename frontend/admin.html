@@ -28,7 +28,7 @@ input[type=text]{
 }
 
 input[type=file]{
-  
+
 }
 select{
   background: transparent;
@@ -55,7 +55,7 @@ select option {
 .button {
     background-color: #4CAF50; /* Green */
     border: none;
-    
+
     padding: 1px 13px;
     text-align: center;
     text-decoration: none;
@@ -80,8 +80,8 @@ img{
   background-color: black;
 }
 .button1 {
-    background: transparent; 
-    color: white; 
+    background: transparent;
+    color: white;
     border: 1px solid white;
     outline-color: grey;
     margin-top: 4px;
@@ -95,22 +95,22 @@ img{
 
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
   <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    
+
   </div>
   <div class="w3-display-middle">
     <h1 class="w3-jumbo w3-animate-top">VENTRILOQUY</h1>
     <h1 class="w3-xxlarge w3-animate-top" align="center">Admin File Upload</h1>
-    
+
     <div align="center">
       <form id="file-form" action="uploaded.html" method="POST">
       <input type="file" id="file-select" name="photos[]" />
       <button type="submit" id="upload-button">Upload</button>
       <br>
       <a href="test.html">Click here to go back to main page</a>
-    
+
       </form>
 
-    
+
     </div>
 
 
@@ -121,7 +121,8 @@ img{
 </div>
 
 </body>
-<script type="text/javascript"> var form = document.getElementById('file-form');
+<script type="text/javascript">
+var form = document.getElementById('file-form');
 var fileSelect = document.getElementById('file-select');
 var uploadButton = document.getElementById('upload-button');
 
@@ -162,5 +163,5 @@ formData.append(name, file, file.name);
   }
 };
 xhr.send(formData);
-}</script>>
+}</script>
 </html>

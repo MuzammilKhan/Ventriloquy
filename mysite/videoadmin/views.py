@@ -1,3 +1,5 @@
+import wordclips
+import os
 from django.template.loader import get_template
 from django.shortcuts import render
 from django.template import Context
@@ -5,12 +7,14 @@ from django.http import HttpResponse
 
 from django.contrib.auth.decorators import login_required
 
-import wordclips
 from wordclips.models import Wordclip
+from videoadmin.models import CeleryTask
 
-import os
 
 from django.conf import settings
+
+from videoadmin.tasks import UploadTask
+
 
 # Create your views here.
 # this login required decorator is to not allow to any
@@ -21,13 +25,17 @@ def video_admin(request):
     # Obtain the keywords to search in the db
     clips_kw = request.GET.get('keyword', 'a')
     APP_ROOT = os.path.abspath(os.path.dirname(wordclips.__file__))
-    print(clips_kw)
     context = {}
-
 
     # Check the validity of the keyword
     if len(clips_kw) == 0:
-       return render(request, 'video_admin.html', context)
+        return render(request, 'video_admin.html', context)
+
+
+
+    #
+
+
 
     # Construct the list contains path of clips
     # of the search of the keyword
@@ -42,3 +50,10 @@ def video_admin(request):
 
     context = { 'clip_paths' : clip_paths, 'MEDIA_URL' : settings.MEDIA_URL }
     return render(request, 'video_admin.html', context)
+
+
+def uploaded(request):
+
+    context = {}
+
+    return render(request, 'uploaded.html', context)
