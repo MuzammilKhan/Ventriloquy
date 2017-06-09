@@ -1,8 +1,8 @@
 import unittest
 import sys
-sys.path.append(..)
+sys.path.append("..")
 import speech2text.py
-import make-them-say.py
+import make_them_say.py
 
 
 class TestSpeech2Text(unittest.TestCase):
