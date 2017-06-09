@@ -260,7 +260,11 @@ def remove_extra_clips():
 					biggest_file_path = path_to_file
 				else:
 					os.remove(path + subdir + "/" + file)
-			os.rename(biggest_file_path, path + subdir + "/1.mp4")
+
+			if biggest_file_path != (path + subdir + "/1.mp4"):
+				if os.path.exists(path + subdir + "/1.mp4"):	
+					os.remove(path + subdir + "/1.mp4")
+				os.rename(biggest_file_path, path + subdir + "/1.mp4")
 
 ######################################################################
 # main

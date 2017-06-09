@@ -3,6 +3,30 @@
 {% block content %}
 <div class="container">
   <div class="row">
+    <div class="random">
+      <h1>Task history:</h1>
+        <center>
+          {% if task_list %}
+          <table class="table">
+            <tr>
+              <th>Task ID</th>
+              <th>Status</th>
+            </tr>
+            {% for t in task_list %}
+              <tr>
+                <th>{{ t.celery_task_id }}</th>
+                <th>{{ t.celery_task_status }}</th>
+              </tr>
+            {% endfor %}
+          </table>
+          {% else %}
+            <p>Task history empty.</p>
+          {% endif %}
+        </center>
+    </div>
+  </div>
+
+  <div class="row">
 
   <div class="jumbotron">
     <h1>Search the clips in the database:</h1>
@@ -22,20 +46,70 @@
     </p>
 
 
+    <div align="center">
+      <form action="" method="get">
+        <div id="content">
+        <textarea class="form-control" name="keyword" id="ta" cols="30" placeholder="Click To Enter Text"></textarea>
+        </div>
 
-    <form action="" method="get">
-    <div id="content">
-    <textarea name="keyword" id="ta" cols="30" placeholder="Click To Enter Text"></textarea>
+        <hr class="w3-border-grey" style="margin:auto;width:65%">
+
+        <button  class="btn btn-success btn-sm" value="Search">Search</button>
+      </form>
     </div>
 
-    <hr class="w3-border-grey" style="margin:auto;width:65%">
+    <div align="center">
+      <form id="file-form" action="{% url 'uploaded' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input  class="form-control" type="file" id="file-select" name="payload" />
+        <button class="btn btn-success btn-sm" type="submit" id="upload-button">Upload</button>
+        <br>
 
-    <button  class="button button1" value="Search">Search</button>
-    </form>
+      </form>
+    </div>
 
 
 
   </div>
   </div>
+
 </div>
+<script type="text/javascript">
+var form = document.getElementById('file-form');
+var fileSelect = document.getElementById('file-select');
+var uploadButton = document.getElementById('upload-button');
+
+form.onsubmit = function(event) {
+  event.preventDefault();
+
+  // Update button text.
+  uploadButton.innerHTML = 'Uploading...';
+
+  // The rest of the code will go here...
+  var files = fileSelect.files;
+
+  var formData = new FormData();
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+
+    // Check the file type.
+    if (!file.type.match('video.*')) {
+      continue;
+    }
+
+    // Add the file to the request.
+    formData.append('photos[]', file, file.name);
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', "{% url 'uploaded' %}", true);
+  xhr.onload = function () {
+  (xhr.upload || xhr).addEventListener('progress', function(e) {
+              var done = e.position || e.loaded
+              var total = e.totalSize || e.total;
+              console.log('xhr progress: ' + Math.round(done/total*100) + '%');
+          });
+  xhr.send(formData);
+
+}</script>
 {% endblock %}

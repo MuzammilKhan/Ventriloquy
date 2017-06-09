@@ -1,0 +1,27 @@
+{% extends 'videoadmin/base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+  <div class="main">
+    <p>
+      Upload Successful!
+    </p>
+    <div align="center">
+    <form action="{% url 'video_admin' %}" method="post">
+      {% csrf_token %}
+      <hr class="w3-border-grey" style="margin:auto;width:65%">
+
+      <button  class="button button1" value="Back">Go Back!</button>
+    </form>
+    </div>
+
+    <p>
+      File uploaded to: {{ uploaded_file_url }}
+    </p>
+
+  </div>
+  </div>
+</div>
+{% endblock %}

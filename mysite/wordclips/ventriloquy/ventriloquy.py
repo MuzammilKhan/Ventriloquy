@@ -8,6 +8,9 @@ from wordclips.models import Wordclip
 
 from django.conf import settings
 
+# for calling scripts outside the project
+sys.path.append('../../..')
+
 # def find(name, path):
 #     for root, dirs, files in os.walk(path):
 #         if name in files:
@@ -115,3 +118,6 @@ class Ventriloquy:
 		combined_audio.export(APP_ROOT + "/../static/they-say.wav", format="wav")
 		# success
 		return 0, []
+
+	def say(self, words):
+		make_them_say.main([''])
