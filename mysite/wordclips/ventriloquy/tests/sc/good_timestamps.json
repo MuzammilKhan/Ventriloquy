@@ -1,0 +1,1493 @@
+{
+ "results": [
+  {
+   "word_alternatives": [
+    {
+     "start_time": 0.3, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "I"
+      }
+     ], 
+     "end_time": 0.49
+    }, 
+    {
+     "start_time": 0.49, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "believe"
+      }
+     ], 
+     "end_time": 0.85
+    }, 
+    {
+     "start_time": 0.85, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "we"
+      }
+     ], 
+     "end_time": 0.98
+    }, 
+    {
+     "start_time": 0.98, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "can"
+      }
+     ], 
+     "end_time": 1.12
+    }, 
+    {
+     "start_time": 1.12, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "keep"
+      }
+     ], 
+     "end_time": 1.47
+    }, 
+    {
+     "start_time": 1.54, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "the"
+      }
+     ], 
+     "end_time": 1.64
+    }, 
+    {
+     "start_time": 1.64, 
+     "alternatives": [
+      {
+       "confidence": 0.9755, 
+       "word": "promise"
+      }, 
+      {
+       "confidence": 0.0245, 
+       "word": "promises"
+      }
+     ], 
+     "end_time": 2.17
+    }, 
+    {
+     "start_time": 2.17, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "of"
+      }
+     ], 
+     "end_time": 2.33
+    }, 
+    {
+     "start_time": 2.33, 
+     "alternatives": [
+      {
+       "confidence": 0.9706, 
+       "word": "our"
+      }, 
+      {
+       "confidence": 0.0294, 
+       "word": "are"
+      }
+     ], 
+     "end_time": 2.47
+    }, 
+    {
+     "start_time": 2.47, 
+     "alternatives": [
+      {
+       "confidence": 0.5673, 
+       "word": "founding"
+      }, 
+      {
+       "confidence": 0.1679, 
+       "word": "founders"
+      }, 
+      {
+       "confidence": 0.1451, 
+       "word": "founder"
+      }, 
+      {
+       "confidence": 0.0604, 
+       "word": "family"
+      }, 
+      {
+       "confidence": 0.0521, 
+       "word": "found"
+      }, 
+      {
+       "confidence": 0.0067, 
+       "word": "founded"
+      }
+     ], 
+     "end_time": 2.97
+    }
+   ], 
+   "alternatives": [
+    {
+     "word_confidence": [
+      [
+       "I", 
+       1.0
+      ], 
+      [
+       "believe", 
+       1.0
+      ], 
+      [
+       "we", 
+       1.0
+      ], 
+      [
+       "can", 
+       1.0
+      ], 
+      [
+       "keep", 
+       1.0
+      ], 
+      [
+       "the", 
+       1.0
+      ], 
+      [
+       "promise", 
+       0.749
+      ], 
+      [
+       "of", 
+       1.0
+      ], 
+      [
+       "our", 
+       1.0
+      ], 
+      [
+       "founding", 
+       0.208
+      ]
+     ], 
+     "confidence": 0.797, 
+     "transcript": "I believe we can keep the promise of our founding ", 
+     "timestamps": [
+      [
+       "I", 
+       0.3, 
+       0.49
+      ], 
+      [
+       "believe", 
+       0.49, 
+       0.85
+      ], 
+      [
+       "we", 
+       0.85, 
+       0.98
+      ], 
+      [
+       "can", 
+       0.98, 
+       1.12
+      ], 
+      [
+       "keep", 
+       1.12, 
+       1.47
+      ], 
+      [
+       "the", 
+       1.54, 
+       1.64
+      ], 
+      [
+       "promise", 
+       1.64, 
+       2.17
+      ], 
+      [
+       "of", 
+       2.17, 
+       2.33
+      ], 
+      [
+       "our", 
+       2.33, 
+       2.47
+      ], 
+      [
+       "founding", 
+       2.47, 
+       2.97
+      ]
+     ]
+    }
+   ], 
+   "final": true
+  }, 
+  {
+   "word_alternatives": [
+    {
+     "start_time": 4.0, 
+     "alternatives": [
+      {
+       "confidence": 0.8186, 
+       "word": "yeah"
+      }, 
+      {
+       "confidence": 0.1815, 
+       "word": "the"
+      }
+     ], 
+     "end_time": 4.16
+    }, 
+    {
+     "start_time": 4.16, 
+     "alternatives": [
+      {
+       "confidence": 0.8186, 
+       "word": "I"
+      }
+     ], 
+     "end_time": 4.23
+    }, 
+    {
+     "start_time": 4.23, 
+     "alternatives": [
+      {
+       "confidence": 0.8185, 
+       "word": "did"
+      }, 
+      {
+       "confidence": 0.1814, 
+       "word": "idea"
+      }
+     ], 
+     "end_time": 4.56
+    }, 
+    {
+     "start_time": 4.56, 
+     "alternatives": [
+      {
+       "confidence": 0.8709, 
+       "word": "that"
+      }, 
+      {
+       "confidence": 0.1077, 
+       "word": "but"
+      }, 
+      {
+       "confidence": 0.0146, 
+       "word": "it"
+      }, 
+      {
+       "confidence": 0.0062, 
+       "word": "the"
+      }, 
+      {
+       "confidence": 0.0004, 
+       "word": "this"
+      }, 
+      {
+       "confidence": 0.0002, 
+       "word": "they"
+      }
+     ], 
+     "end_time": 4.72
+    }, 
+    {
+     "start_time": 4.72, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "if"
+      }
+     ], 
+     "end_time": 4.91
+    }, 
+    {
+     "start_time": 4.91, 
+     "alternatives": [
+      {
+       "confidence": 0.9894, 
+       "word": "you're"
+      }, 
+      {
+       "confidence": 0.0104, 
+       "word": "your"
+      }
+     ], 
+     "end_time": 5.05
+    }, 
+    {
+     "start_time": 5.05, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "willing"
+      }
+     ], 
+     "end_time": 5.33
+    }, 
+    {
+     "start_time": 5.33, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "to"
+      }
+     ], 
+     "end_time": 5.39
+    }, 
+    {
+     "start_time": 5.39, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "work"
+      }
+     ], 
+     "end_time": 5.63
+    }, 
+    {
+     "start_time": 5.63, 
+     "alternatives": [
+      {
+       "confidence": 0.9833, 
+       "word": "hard"
+      }, 
+      {
+       "confidence": 0.0156, 
+       "word": "harder"
+      }, 
+      {
+       "confidence": 0.0012, 
+       "word": "card"
+      }
+     ], 
+     "end_time": 5.93
+    }
+   ], 
+   "alternatives": [
+    {
+     "word_confidence": [
+      [
+       "yeah", 
+       0.802
+      ], 
+      [
+       "I", 
+       0.802
+      ], 
+      [
+       "did", 
+       0.802
+      ], 
+      [
+       "that", 
+       0.565
+      ], 
+      [
+       "if", 
+       0.99
+      ], 
+      [
+       "you're", 
+       1.0
+      ], 
+      [
+       "willing", 
+       1.0
+      ], 
+      [
+       "to", 
+       1.0
+      ], 
+      [
+       "work", 
+       0.997
+      ], 
+      [
+       "hard", 
+       0.763
+      ]
+     ], 
+     "confidence": 0.868, 
+     "transcript": "yeah I did that if you're willing to work hard ", 
+     "timestamps": [
+      [
+       "yeah", 
+       4.0, 
+       4.16
+      ], 
+      [
+       "I", 
+       4.16, 
+       4.23
+      ], 
+      [
+       "did", 
+       4.23, 
+       4.56
+      ], 
+      [
+       "that", 
+       4.56, 
+       4.72
+      ], 
+      [
+       "if", 
+       4.72, 
+       4.91
+      ], 
+      [
+       "you're", 
+       4.91, 
+       5.05
+      ], 
+      [
+       "willing", 
+       5.05, 
+       5.33
+      ], 
+      [
+       "to", 
+       5.33, 
+       5.39
+      ], 
+      [
+       "work", 
+       5.39, 
+       5.63
+      ], 
+      [
+       "hard", 
+       5.63, 
+       5.93
+      ]
+     ]
+    }
+   ], 
+   "final": true
+  }, 
+  {
+   "word_alternatives": [
+    {
+     "start_time": 6.77, 
+     "alternatives": [
+      {
+       "confidence": 0.9997, 
+       "word": "it"
+      }
+     ], 
+     "end_time": 6.88
+    }, 
+    {
+     "start_time": 6.88, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "doesn't"
+      }
+     ], 
+     "end_time": 7.19
+    }, 
+    {
+     "start_time": 7.19, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "matter"
+      }
+     ], 
+     "end_time": 7.43
+    }, 
+    {
+     "start_time": 7.43, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "who"
+      }
+     ], 
+     "end_time": 7.62
+    }, 
+    {
+     "start_time": 7.62, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "you"
+      }
+     ], 
+     "end_time": 7.82
+    }, 
+    {
+     "start_time": 7.82, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "are"
+      }
+     ], 
+     "end_time": 8.03
+    }, 
+    {
+     "start_time": 8.55, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "or"
+      }
+     ], 
+     "end_time": 8.72
+    }, 
+    {
+     "start_time": 8.72, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "where"
+      }
+     ], 
+     "end_time": 8.96
+    }, 
+    {
+     "start_time": 8.96, 
+     "alternatives": [
+      {
+       "confidence": 0.9904, 
+       "word": "you"
+      }, 
+      {
+       "confidence": 0.0093, 
+       "word": "you're"
+      }
+     ], 
+     "end_time": 9.12
+    }, 
+    {
+     "start_time": 9.12, 
+     "alternatives": [
+      {
+       "confidence": 0.9904, 
+       "word": "come"
+      }, 
+      {
+       "confidence": 0.0093, 
+       "word": "coming"
+      }
+     ], 
+     "end_time": 9.42
+    }, 
+    {
+     "start_time": 9.48, 
+     "alternatives": [
+      {
+       "confidence": 0.9998, 
+       "word": "from"
+      }
+     ], 
+     "end_time": 9.7
+    }, 
+    {
+     "start_time": 10.1, 
+     "alternatives": [
+      {
+       "confidence": 0.9998, 
+       "word": "or"
+      }
+     ], 
+     "end_time": 10.26
+    }, 
+    {
+     "start_time": 10.26, 
+     "alternatives": [
+      {
+       "confidence": 0.9992, 
+       "word": "what"
+      }, 
+      {
+       "confidence": 0.0004, 
+       "word": "watch"
+      }, 
+      {
+       "confidence": 0.0002, 
+       "word": "watcher"
+      }
+     ], 
+     "end_time": 10.54
+    }, 
+    {
+     "start_time": 10.54, 
+     "alternatives": [
+      {
+       "confidence": 0.9949, 
+       "word": "you"
+      }, 
+      {
+       "confidence": 0.0043, 
+       "word": "your"
+      }, 
+      {
+       "confidence": 0.0002, 
+       "word": "you're"
+      }
+     ], 
+     "end_time": 10.64
+    }, 
+    {
+     "start_time": 10.64, 
+     "alternatives": [
+      {
+       "confidence": 0.9811, 
+       "word": "look"
+      }, 
+      {
+       "confidence": 0.014, 
+       "word": "looked"
+      }, 
+      {
+       "confidence": 0.0048, 
+       "word": "looks"
+      }
+     ], 
+     "end_time": 10.96
+    }, 
+    {
+     "start_time": 10.96, 
+     "alternatives": [
+      {
+       "confidence": 0.9993, 
+       "word": "like"
+      }
+     ], 
+     "end_time": 11.37
+    }, 
+    {
+     "start_time": 11.7, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "or"
+      }
+     ], 
+     "end_time": 11.9
+    }, 
+    {
+     "start_time": 11.9, 
+     "alternatives": [
+      {
+       "confidence": 0.9588, 
+       "word": "where"
+      }, 
+      {
+       "confidence": 0.034, 
+       "word": "wear"
+      }, 
+      {
+       "confidence": 0.007, 
+       "word": "were"
+      }
+     ], 
+     "end_time": 12.17
+    }, 
+    {
+     "start_time": 12.17, 
+     "alternatives": [
+      {
+       "confidence": 0.6904, 
+       "word": "you"
+      }, 
+      {
+       "confidence": 0.1637, 
+       "word": "your"
+      }, 
+      {
+       "confidence": 0.1457, 
+       "word": "you're"
+      }
+     ], 
+     "end_time": 12.33
+    }, 
+    {
+     "start_time": 12.33, 
+     "alternatives": [
+      {
+       "confidence": 0.8258, 
+       "word": "long"
+      }, 
+      {
+       "confidence": 0.0882, 
+       "word": "belong"
+      }, 
+      {
+       "confidence": 0.0523, 
+       "word": "live"
+      }, 
+      {
+       "confidence": 0.0183, 
+       "word": "love"
+      }, 
+      {
+       "confidence": 0.0123, 
+       "word": "along"
+      }, 
+      {
+       "confidence": 0.0023, 
+       "word": "lungs"
+      }
+     ], 
+     "end_time": 12.71
+    }, 
+    {
+     "start_time": 13.09, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "it"
+      }
+     ], 
+     "end_time": 13.2
+    }, 
+    {
+     "start_time": 13.2, 
+     "alternatives": [
+      {
+       "confidence": 0.9998, 
+       "word": "doesn't"
+      }
+     ], 
+     "end_time": 13.49
+    }, 
+    {
+     "start_time": 13.49, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "matter"
+      }
+     ], 
+     "end_time": 13.74
+    }, 
+    {
+     "start_time": 13.74, 
+     "alternatives": [
+      {
+       "confidence": 0.9781, 
+       "word": "whether"
+      }, 
+      {
+       "confidence": 0.0177, 
+       "word": "what"
+      }, 
+      {
+       "confidence": 0.004, 
+       "word": "where"
+      }
+     ], 
+     "end_time": 13.94
+    }, 
+    {
+     "start_time": 13.94, 
+     "alternatives": [
+      {
+       "confidence": 0.5898, 
+       "word": "you're"
+      }, 
+      {
+       "confidence": 0.0136, 
+       "word": "they're"
+      }
+     ], 
+     "end_time": 14.03
+    }, 
+    {
+     "start_time": 14.03, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "black"
+      }
+     ], 
+     "end_time": 14.49
+    }, 
+    {
+     "start_time": 14.49, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "or"
+      }
+     ], 
+     "end_time": 14.59
+    }, 
+    {
+     "start_time": 14.59, 
+     "alternatives": [
+      {
+       "confidence": 0.9999, 
+       "word": "white"
+      }
+     ], 
+     "end_time": 14.97
+    }, 
+    {
+     "start_time": 15.22, 
+     "alternatives": [
+      {
+       "confidence": 0.9996, 
+       "word": "or"
+      }
+     ], 
+     "end_time": 15.36
+    }, 
+    {
+     "start_time": 15.36, 
+     "alternatives": [
+      {
+       "confidence": 0.9994, 
+       "word": "Hispanic"
+      }
+     ], 
+     "end_time": 15.99
+    }, 
+    {
+     "start_time": 16.09, 
+     "alternatives": [
+      {
+       "confidence": 0.9972, 
+       "word": "or"
+      }
+     ], 
+     "end_time": 16.28
+    }, 
+    {
+     "start_time": 16.28, 
+     "alternatives": [
+      {
+       "confidence": 0.9972, 
+       "word": "Asian"
+      }
+     ], 
+     "end_time": 16.81
+    }
+   ], 
+   "alternatives": [
+    {
+     "word_confidence": [
+      [
+       "it", 
+       1.0
+      ], 
+      [
+       "doesn't", 
+       1.0
+      ], 
+      [
+       "matter", 
+       1.0
+      ], 
+      [
+       "who", 
+       1.0
+      ], 
+      [
+       "you", 
+       1.0
+      ], 
+      [
+       "are", 
+       1.0
+      ], 
+      [
+       "or", 
+       1.0
+      ], 
+      [
+       "where", 
+       0.987
+      ], 
+      [
+       "you", 
+       0.791
+      ], 
+      [
+       "come", 
+       0.844
+      ], 
+      [
+       "from", 
+       0.969
+      ], 
+      [
+       "or", 
+       1.0
+      ], 
+      [
+       "what", 
+       0.866
+      ], 
+      [
+       "you", 
+       0.737
+      ], 
+      [
+       "look", 
+       0.57
+      ], 
+      [
+       "like", 
+       0.963
+      ], 
+      [
+       "or", 
+       1.0
+      ], 
+      [
+       "where", 
+       0.945
+      ], 
+      [
+       "you", 
+       0.56
+      ], 
+      [
+       "long", 
+       0.754
+      ], 
+      [
+       "it", 
+       0.981
+      ], 
+      [
+       "doesn't", 
+       1.0
+      ], 
+      [
+       "matter", 
+       1.0
+      ], 
+      [
+       "whether", 
+       0.613
+      ], 
+      [
+       "you're", 
+       0.363
+      ], 
+      [
+       "black", 
+       1.0
+      ], 
+      [
+       "or", 
+       1.0
+      ], 
+      [
+       "white", 
+       1.0
+      ], 
+      [
+       "or", 
+       0.618
+      ], 
+      [
+       "Hispanic", 
+       0.521
+      ], 
+      [
+       "or", 
+       0.504
+      ], 
+      [
+       "Asian", 
+       0.489
+      ]
+     ], 
+     "confidence": 0.832, 
+     "transcript": "it doesn't matter who you are or where you come from or what you look like or where you long it doesn't matter whether you're black or white or Hispanic or Asian ", 
+     "timestamps": [
+      [
+       "it", 
+       6.77, 
+       6.88
+      ], 
+      [
+       "doesn't", 
+       6.88, 
+       7.19
+      ], 
+      [
+       "matter", 
+       7.19, 
+       7.43
+      ], 
+      [
+       "who", 
+       7.43, 
+       7.62
+      ], 
+      [
+       "you", 
+       7.62, 
+       7.82
+      ], 
+      [
+       "are", 
+       7.82, 
+       8.03
+      ], 
+      [
+       "or", 
+       8.55, 
+       8.72
+      ], 
+      [
+       "where", 
+       8.72, 
+       8.96
+      ], 
+      [
+       "you", 
+       8.96, 
+       9.12
+      ], 
+      [
+       "come", 
+       9.12, 
+       9.42
+      ], 
+      [
+       "from", 
+       9.48, 
+       9.7
+      ], 
+      [
+       "or", 
+       10.1, 
+       10.26
+      ], 
+      [
+       "what", 
+       10.26, 
+       10.54
+      ], 
+      [
+       "you", 
+       10.54, 
+       10.64
+      ], 
+      [
+       "look", 
+       10.64, 
+       10.96
+      ], 
+      [
+       "like", 
+       10.96, 
+       11.37
+      ], 
+      [
+       "or", 
+       11.7, 
+       11.9
+      ], 
+      [
+       "where", 
+       11.9, 
+       12.17
+      ], 
+      [
+       "you", 
+       12.17, 
+       12.33
+      ], 
+      [
+       "long", 
+       12.33, 
+       12.71
+      ], 
+      [
+       "it", 
+       13.09, 
+       13.2
+      ], 
+      [
+       "doesn't", 
+       13.2, 
+       13.49
+      ], 
+      [
+       "matter", 
+       13.49, 
+       13.74
+      ], 
+      [
+       "whether", 
+       13.74, 
+       13.94
+      ], 
+      [
+       "you're", 
+       13.94, 
+       14.03
+      ], 
+      [
+       "black", 
+       14.03, 
+       14.49
+      ], 
+      [
+       "or", 
+       14.49, 
+       14.59
+      ], 
+      [
+       "white", 
+       14.59, 
+       14.97
+      ], 
+      [
+       "or", 
+       15.22, 
+       15.36
+      ], 
+      [
+       "Hispanic", 
+       15.36, 
+       15.99
+      ], 
+      [
+       "or", 
+       16.09, 
+       16.28
+      ], 
+      [
+       "Asian", 
+       16.28, 
+       16.81
+      ]
+     ]
+    }
+   ], 
+   "final": true
+  }, 
+  {
+   "word_alternatives": [
+    {
+     "start_time": 17.11, 
+     "alternatives": [
+      {
+       "confidence": 0.9692, 
+       "word": "or"
+      }, 
+      {
+       "confidence": 0.0139, 
+       "word": "for"
+      }, 
+      {
+       "confidence": 0.0066, 
+       "word": "we're"
+      }, 
+      {
+       "confidence": 0.0064, 
+       "word": "were"
+      }, 
+      {
+       "confidence": 0.0028, 
+       "word": "more"
+      }, 
+      {
+       "confidence": 0.0009, 
+       "word": "removable"
+      }
+     ], 
+     "end_time": 17.27
+    }, 
+    {
+     "start_time": 17.27, 
+     "alternatives": [
+      {
+       "confidence": 0.8454, 
+       "word": "minimum"
+      }, 
+      {
+       "confidence": 0.0717, 
+       "word": "medical"
+      }, 
+      {
+       "confidence": 0.0364, 
+       "word": "mental"
+      }, 
+      {
+       "confidence": 0.0165, 
+       "word": "middle"
+      }, 
+      {
+       "confidence": 0.0089, 
+       "word": "little"
+      }, 
+      {
+       "confidence": 0.0055, 
+       "word": "move"
+      }, 
+      {
+       "confidence": 0.0053, 
+       "word": "metal"
+      }, 
+      {
+       "confidence": 0.0019, 
+       "word": "made"
+      }, 
+      {
+       "confidence": 0.0018, 
+       "word": "minimal"
+      }, 
+      {
+       "confidence": 0.0016, 
+       "word": "mentally"
+      }, 
+      {
+       "confidence": 0.001, 
+       "word": "mood"
+      }, 
+      {
+       "confidence": 0.0001, 
+       "word": "man"
+      }, 
+      {
+       "confidence": 0.0001, 
+       "word": "that"
+      }
+     ], 
+     "end_time": 17.8
+    }
+   ], 
+   "alternatives": [
+    {
+     "word_confidence": [
+      [
+       "or", 
+       0.522
+      ], 
+      [
+       "minimum", 
+       0.451
+      ]
+     ], 
+     "confidence": 0.468, 
+     "transcript": "or minimum ", 
+     "timestamps": [
+      [
+       "or", 
+       17.11, 
+       17.27
+      ], 
+      [
+       "minimum", 
+       17.27, 
+       17.8
+      ]
+     ]
+    }
+   ], 
+   "final": true
+  }, 
+  {
+   "word_alternatives": [
+    {
+     "start_time": 18.54, 
+     "alternatives": [
+      {
+       "confidence": 0.6403, 
+       "word": "or"
+      }, 
+      {
+       "confidence": 0.236, 
+       "word": "for"
+      }, 
+      {
+       "confidence": 0.0697, 
+       "word": "were"
+      }, 
+      {
+       "confidence": 0.0192, 
+       "word": "four"
+      }, 
+      {
+       "confidence": 0.0178, 
+       "word": "more"
+      }, 
+      {
+       "confidence": 0.0095, 
+       "word": "we're"
+      }, 
+      {
+       "confidence": 0.0026, 
+       "word": "gore"
+      }, 
+      {
+       "confidence": 0.0018, 
+       "word": "war"
+      }, 
+      {
+       "confidence": 0.0012, 
+       "word": "where"
+      }, 
+      {
+       "confidence": 0.0005, 
+       "word": "poor"
+      }
+     ], 
+     "end_time": 18.72
+    }, 
+    {
+     "start_time": 18.72, 
+     "alternatives": [
+      {
+       "confidence": 0.5471, 
+       "word": "you"
+      }, 
+      {
+       "confidence": 0.2537, 
+       "word": "yeah"
+      }, 
+      {
+       "confidence": 0.0461, 
+       "word": "no"
+      }, 
+      {
+       "confidence": 0.0253, 
+       "word": "young"
+      }, 
+      {
+       "confidence": 0.0227, 
+       "word": "ya"
+      }, 
+      {
+       "confidence": 0.0195, 
+       "word": "you're"
+      }, 
+      {
+       "confidence": 0.0163, 
+       "word": "your"
+      }, 
+      {
+       "confidence": 0.0118, 
+       "word": "not"
+      }, 
+      {
+       "confidence": 0.009, 
+       "word": "just"
+      }, 
+      {
+       "confidence": 0.0073, 
+       "word": "John"
+      }, 
+      {
+       "confidence": 0.0072, 
+       "word": "you'll"
+      }, 
+      {
+       "confidence": 0.0035, 
+       "word": "he"
+      }, 
+      {
+       "confidence": 0.0031, 
+       "word": "does"
+      }, 
+      {
+       "confidence": 0.0006, 
+       "word": "join"
+      }, 
+      {
+       "confidence": 0.0004, 
+       "word": "he'll"
+      }, 
+      {
+       "confidence": 0.0003, 
+       "word": "now"
+      }
+     ], 
+     "end_time": 18.88
+    }, 
+    {
+     "start_time": 18.9, 
+     "alternatives": [
+      {
+       "confidence": 0.6444, 
+       "word": "<eps>"
+      }, 
+      {
+       "confidence": 0.0288, 
+       "word": "don't"
+      }, 
+      {
+       "confidence": 0.0103, 
+       "word": "can"
+      }, 
+      {
+       "confidence": 0.0056, 
+       "word": "are"
+      }, 
+      {
+       "confidence": 0.0041, 
+       "word": "I"
+      }, 
+      {
+       "confidence": 0.0008, 
+       "word": "go"
+      }, 
+      {
+       "confidence": 0.0003, 
+       "word": "might"
+      }
+     ], 
+     "end_time": 18.96
+    }
+   ], 
+   "alternatives": [
+    {
+     "word_confidence": [
+      [
+       "or", 
+       0.355
+      ], 
+      [
+       "you", 
+       0.35
+      ]
+     ], 
+     "confidence": 0.353, 
+     "transcript": "or you ", 
+     "timestamps": [
+      [
+       "or", 
+       18.54, 
+       18.72
+      ], 
+      [
+       "you", 
+       18.72, 
+       18.88
+      ]
+     ]
+    }
+   ], 
+   "final": true
+  }
+ ], 
+ "result_index": 0, 
+ "warnings": [
+  "Unknown arguments: continuous."
+ ]
+}
