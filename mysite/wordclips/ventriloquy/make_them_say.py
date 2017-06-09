@@ -58,7 +58,7 @@ def concat(person, clips):
 			subprocess_call(cmd, False, False)
 		except:
 			print "Oops! " + person.title() + " doesn't know the word '" + clip + "'"
-			sys.exit()
+			return clip
 
 		if first:
 			concat_param = concat_param + "workspacets/" + clip + ".ts"
@@ -73,6 +73,7 @@ def concat(person, clips):
 	  output_folder + "/tmp.mp4"]
 
 	subprocess_call(fcmd, False)
+	return ""
 
 def normalize(clip):
 	"""
@@ -113,13 +114,15 @@ def run(argv):
 	phrase = os.path.splitext(argv[3])[0]
 	words = phrase.split()
 
-	concat(argv[2].lower(), words)
-	normalize(output_folder + "/tmp.mp4")
-	audio = AudioSegment.from_file(output_folder + "/they-say.mp4", "mp4")
-	audio.export(output_folder + "/they-say.wav", "wav")
+	rtn = concat(argv[2].lower(), words)
+	if rtn == "":
+		normalize(output_folder + "/tmp.mp4")
+		audio = AudioSegment.from_file(output_folder + "/they-say.mp4", "mp4")
+		audio.export(output_folder + "/they-say.wav", "wav")
+	return rtn
 
 def main(argv) :
-	run(argv)
+	print(run(argv))
 
 if __name__ == "__main__" :
 	main(sys.argv[1:])

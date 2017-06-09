@@ -30,6 +30,8 @@ def search_in_database(request):
 
     # Get the speaker
     speaker = request.GET.get('Person', '')
+    speaker = speaker.lower()
+    # print('speaker: ' + speaker)
 
     # print('receive: ' + wl)
 
@@ -43,13 +45,14 @@ def search_in_database(request):
     wl = parser.parseDefault(words)
 
 
+
     # Create the generated video using the clips
     # err, missing = ventriloquy.create_audio(wl)
-    err, missing = ventriloquy.say(wl)
+    missing = ventriloquy.say(wl, speaker)
     # Check if there is any missing word in the db
-    if err != 0:
+    if missing != "":
         t = get_template('wordclips/error.html')
-        html = t.render(Context({ 'missing' : missing }))
+        html = t.render(Context({ 'missing' : missing, 'speaker_title' : speaker.title(), 'speaker' : speaker }))
         return HttpResponse(html)
 
 

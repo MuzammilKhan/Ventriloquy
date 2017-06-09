@@ -32,7 +32,7 @@ from videoadmin.forms import LoginForm
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^time/plus/(\d{1,2})/$', hours_ahead),
-    url(r'^$', home),
+    url(r'^$', home, name='home'),
     url(r'^home/$', home),
     url(r'^home/search/$', search_in_database),
     url(r'^test/$', test),
