@@ -9,7 +9,10 @@ from wordclips.models import Wordclip
 from django.conf import settings
 
 # for calling scripts outside the project
-sys.path.append('../../..')
+# sys.path.append("../../..")
+
+# from wordclips.ventriloquy.make_them_say import main
+from .make_them_say import main
 
 # def find(name, path):
 #     for root, dirs, files in os.walk(path):
@@ -86,9 +89,9 @@ class Ventriloquy:
 			         return the word that is missing
 
 		"""
-		err, obj_list = self.check_words(words)
-		if err != 0:
-			return err, obj_list
+		# err, obj_list = self.check_words(words)
+		# if err != 0:
+		# 	return err, obj_list
 
 		combined_audio = AudioSegment.silent(duration=0)
 		audio = AudioSegment.silent(duration=0)
@@ -119,5 +122,10 @@ class Ventriloquy:
 		# success
 		return 0, []
 
-	def say(self, words):
-		make_them_say.main([''])
+	def say(self, words, speaker):
+		sentence = ""
+		for w in words:
+			sentence += ' '
+			sentence += w
+		rtn = main([settings.MEDIA_ROOT, settings.MEDIA_ROOT+'/../../static', speaker, sentence])
+		return rtn

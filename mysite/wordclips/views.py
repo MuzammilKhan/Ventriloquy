@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from wordclips.models import Wordclip
 from wordclips.ventriloquy.ventriloquy import Ventriloquy
 from wordclips.utils.inputparser import InputParser
+from django.views.decorators.cache import never_cache
 
 
 # Create your views here.
@@ -22,11 +23,19 @@ def home(request):
 '''
     Result view that is returned after text input
 '''
+@never_cache
 def search_in_database(request):
+    request.META.pop('HTTP_IF_MODIFIED_SINCE', None)
 
     # Obtain word list
     # print('@@@@ FLAG ')
     words = request.GET.get('Input_text', '')
+
+    # Get the speaker
+    speaker = request.GET.get('Person', '')
+    speaker = speaker.lower()
+    # print('speaker: ' + speaker)
+
     # print('receive: ' + wl)
 
     # Input parser
@@ -39,12 +48,14 @@ def search_in_database(request):
     wl = parser.parseDefault(words)
 
 
+
     # Create the generated video using the clips
-    err, missing = ventriloquy.create_audio(wl)
+    # err, missing = ventriloquy.create_audio(wl)
+    missing = ventriloquy.say(wl, speaker)
     # Check if there is any missing word in the db
-    if err != 0:
+    if missing != "":
         t = get_template('wordclips/error.html')
-        html = t.render(Context({ 'missing' : missing }))
+        html = t.render(Context({ 'missing' : missing, 'speaker_title' : speaker.title(), 'speaker' : speaker }))
         return HttpResponse(html)
 
 

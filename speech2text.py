@@ -255,12 +255,14 @@ def remove_extra_clips():
 			maximum = 0
 			biggest_file_path = ""
 			for file in files:
-				path_to_file = path + subdir + "/" + file
-				if maximum < len(file):
-					maximum = len(file)
-					biggest_file_path = path_to_file
-				else:
-					os.remove(path + subdir + "/" + file)
+				if not file[0] == '.':
+					path_to_file = path + subdir + "/" + file
+					file_size = os.path.getsize(path_to_file)
+					if maximum < file_size:
+						maximum = file_size
+						biggest_file_path = path_to_file
+					else:
+						os.remove(path + subdir + "/" + file)
 
 			if biggest_file_path != (path + subdir + "/1.mp4"):
 				if os.path.exists(path + subdir + "/1.mp4"):	
