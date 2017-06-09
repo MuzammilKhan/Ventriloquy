@@ -52,7 +52,7 @@ def search_in_database(request):
     # Check if there is any missing word in the db
     if missing != "":
         t = get_template('wordclips/error.html')
-        html = t.render(Context({ 'missing' : missing }))
+        html = t.render(Context({ 'missing' : missing, 'speaker_title' : speaker.title(), 'speaker' : speaker }))
         return HttpResponse(html)
 
 
