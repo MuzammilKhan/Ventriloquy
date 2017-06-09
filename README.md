@@ -13,3 +13,8 @@ pip install moviepy
 pip install watson-developer-cloud
 pip install ffmpeg-normalize
 ```
+
+Get `ffmpeg`:
+```
+You can download it from https://ffmpeg.zeranoe.com/builds/
+```
