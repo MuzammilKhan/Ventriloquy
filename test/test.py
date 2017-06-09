@@ -1,6 +1,8 @@
 import unittest
-import ../speech2text.py
-import ../make-them-say.py
+import sys
+sys.path.append(..)
+import speech2text.py
+import make-them-say.py
 
 
 class TestSpeech2Text(unittest.TestCase):
