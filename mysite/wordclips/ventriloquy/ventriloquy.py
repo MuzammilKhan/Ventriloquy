@@ -9,7 +9,10 @@ from wordclips.models import Wordclip
 from django.conf import settings
 
 # for calling scripts outside the project
-sys.path.append('../../..')
+# sys.path.append("../../..")
+
+# from wordclips.ventriloquy.make_them_say import main
+from .make_them_say import main
 
 # def find(name, path):
 #     for root, dirs, files in os.walk(path):
@@ -120,4 +123,9 @@ class Ventriloquy:
 		return 0, []
 
 	def say(self, words):
-		make_them_say.main([''])
+		sentence = ""
+		for w in words:
+			sentence += ' '
+			sentence += w
+		main([settings.MEDIA_ROOT, settings.MEDIA_ROOT+'/../../static', 'trump', sentence])
+		return 0, []

@@ -12,7 +12,7 @@ output_folder = ""
 
 def assure_path_exists(path):
 	"""
-	Check if path exists. If not, create it. 
+	Check if path exists. If not, create it.
 
 	Parameters
 	--------------------
@@ -51,27 +51,27 @@ def concat(person, clips):
 		cmd = [get_setting("FFMPEG_BINARY"), "-y",
 			"-i", clips_path + "/" + person + "/" + clip + "/1.mp4",
 			"-c", "copy", "-bsf:v",  "h264_mp4toannexb",
-			"-f", "mpegts", 
-			"workspacets/" + clip + ".ts"]   
+			"-f", "mpegts",
+			"workspacets/" + clip + ".ts"]
 
 		try:
 			subprocess_call(cmd, False, False)
 		except:
 			print("Oops!" + person + "doesn't know the word: " + clip + " :(")
 			sys.exit()
-		
+
 		if first:
 			concat_param = concat_param + "workspacets/" + clip + ".ts"
 			first = False
 		else:
 			concat_param = concat_param + "|" + "workspacets/" + clip + ".ts"
-  
+
 	fcmd = [get_setting("FFMPEG_BINARY"), "-y",
 	  "-i", concat_param,
 	  "-c", "copy",
 	  "-bsf:a", "aac_adtstoasc",
 	  output_folder + "/tmp.mp4"]
-	
+
 	subprocess_call(fcmd, False)
 
 def normalize(clip):
@@ -88,7 +88,7 @@ def normalize(clip):
 
 	cmd = ["ffmpeg-normalize", "-fu",
 	  "--format", "mp4",
-	  clip]   
+	  clip]
 
 	subprocess_call(cmd, False)
 	if os.path.exists(output_folder + "/they-say.mp4"):
@@ -97,25 +97,28 @@ def normalize(clip):
 	os.remove(output_folder + "/tmp.mp4")
 
 def main(argv) :
-	if(len(sys.argv) != 5): 
+
+	for arg in argv:
+		print(arg)
+	if(len(argv) != 4):
 		print('Usage: make-them-say.py clips_path output_folder person statement')
-		sys.exit(2)
+		sys.exit(len(argv))
 
 	global clips_path
 	global output_folder
 
-	clips_path = sys.argv[1]
-	output_folder = sys.argv[2]
+	clips_path = argv[0]
+	output_folder = argv[1]
 
 	assure_path_exists(clips_path)
 	assure_path_exists(output_folder)
 
-	phrase = os.path.splitext(sys.argv[4])[0]
+	phrase = os.path.splitext(argv[3])[0]
 	words = phrase.split()
 
-	concat(sys.argv[3].lower(), words)
+	concat(argv[2].lower(), words)
 	normalize(output_folder + "/tmp.mp4")
 	audio = AudioSegment.from_file(output_folder + "/they-say.mp4", "mp4")
 	audio.export(output_folder + "/they-say.wav", "wav")
 if __name__ == "__main__" :
-	main(sys.argv[1:])
+	main(argv[1:])
