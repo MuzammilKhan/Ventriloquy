@@ -53,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # 'wordclips.middleware.custom304handler.NoIfModifiedSinceMiddleware',
 )
 
 LOGIN_REDIRECT_URL = '/video_admin/'

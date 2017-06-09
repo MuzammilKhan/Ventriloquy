@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from wordclips.models import Wordclip
 from wordclips.ventriloquy.ventriloquy import Ventriloquy
 from wordclips.utils.inputparser import InputParser
+from django.views.decorators.cache import never_cache
 
 
 # Create your views here.
@@ -22,7 +23,9 @@ def home(request):
 '''
     Result view that is returned after text input
 '''
+@never_cache
 def search_in_database(request):
+    request.META.pop('HTTP_IF_MODIFIED_SINCE', None)
 
     # Obtain word list
     # print('@@@@ FLAG ')
