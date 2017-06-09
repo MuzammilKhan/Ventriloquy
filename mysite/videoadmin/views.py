@@ -18,6 +18,8 @@ from videoadmin.tasks import get_task_status
 from videoadmin.tasks import process
 
 from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import Storage
+from django.core.files.base import ContentFile
 
 
 # Create your views here.
@@ -76,11 +78,25 @@ def uploaded(request):
 
     if request.method == 'POST' and request.FILES['payload']:
         myfile = request.FILES['payload']
+
+        # save to a different path
+        # fs = FileSystemStorage(location=settings.MEDIA_URL + '../')
+        # fs.file_permissions_mode = 0o777
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
+
         uploaded_file_url = fs.url(filename)
+
+        # print(filename)    # filename by its own
+        # print(fs.base_url) # relative path of the MEDIA_URL
+        # print(fs.location) # complete path to the file
+        # print ("Shit: "+ str(fs.location))
+        t = process.delay('obama', str(fs.location), filename)
+        celery_task = CeleryTask(celery_task_id=t.id, celery_task_status = u'PROGRESS')
+        celery_task.save()
+
         return render(request, 'uploaded.html', {
-            'uploaded_file_url': uploaded_file_url
+            'uploaded_file_url': fs.location + '/' + filename
         })
 
 

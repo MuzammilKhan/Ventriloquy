@@ -19,10 +19,10 @@ def UploadTask(message):
     return message
 
 @celery_app.task()
-def process(speaker, path):
+def process(speaker, path, filename):
 
     process.update_state(state='PROGRESS', meta={'progress': 0})
-    run('obama', '/Users/dateng/Developer/Ventriloquy/mysite/media/yes-we-can-speech.mp4', '/Users/dateng/Developer/Ventriloquy/mysite/media/')
+    run(speaker, path  + '/' + filename, path + '/../')
     process.update_state(state='PROGRESS', meta={'progress': 100})
     return speaker, path
 
