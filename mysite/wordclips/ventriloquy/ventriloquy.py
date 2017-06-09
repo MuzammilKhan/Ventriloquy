@@ -89,9 +89,9 @@ class Ventriloquy:
 			         return the word that is missing
 
 		"""
-		err, obj_list = self.check_words(words)
-		if err != 0:
-			return err, obj_list
+		# err, obj_list = self.check_words(words)
+		# if err != 0:
+		# 	return err, obj_list
 
 		combined_audio = AudioSegment.silent(duration=0)
 		audio = AudioSegment.silent(duration=0)
@@ -122,10 +122,10 @@ class Ventriloquy:
 		# success
 		return 0, []
 
-	def say(self, words):
+	def say(self, words, speaker):
 		sentence = ""
 		for w in words:
 			sentence += ' '
 			sentence += w
-		main([settings.MEDIA_ROOT, settings.MEDIA_ROOT+'/../../static', 'trump', sentence])
-		return 0, []
+		rtn = main([settings.MEDIA_ROOT, settings.MEDIA_ROOT+'/../../static', speaker, sentence])
+		return rtn
