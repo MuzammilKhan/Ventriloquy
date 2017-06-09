@@ -6,6 +6,7 @@ import moviepy.editor as mp
 from moviepy.tools import subprocess_call
 from moviepy.config import get_setting
 from pydub import AudioSegment
+import enchant
 
 clips_path = ""
 output_folder = ""
@@ -57,7 +58,7 @@ def concat(person, clips):
 		try:
 			subprocess_call(cmd, False, False)
 		except:
-			print "Oops! " + person.title() + " doesn't know the word '" + clip + "'"
+			print ("Oops! " + person.title() + " doesn't know the word '" + clip + "'")
 			return clip
 
 		if first:
@@ -112,6 +113,19 @@ def run(argv):
 	assure_path_exists(output_folder)
 
 	phrase = os.path.splitext(argv[3])[0]
+
+	special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"', '.'] # used later to detect special characters
+	d = enchant.Dict('en_US')
+	for val in words:
+		for char in val:
+			if char in special_chars:
+				char = ""
+	
+		if not d.check(val):
+			temp = d.suggest(val)
+			val = temp[0]
+		
+	
 	words = phrase.split()
 
 	rtn = concat(argv[2].lower(), words)
