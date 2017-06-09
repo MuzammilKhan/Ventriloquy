@@ -7,6 +7,24 @@ from moviepy.tools import subprocess_call
 from moviepy.config import get_setting
 from pydub import AudioSegment
 
+clips_path = ""
+output_folder = ""
+
+def assure_path_exists(path):
+	"""
+	Check if path exists. If not, create it. 
+
+	Parameters
+	--------------------
+		path			-- 	path
+
+	Returns
+	--------------------
+		nothing
+	"""
+	if not os.path.exists(path):
+		os.makedirs(path)
+
 def concat(person, clips):
 	"""
 	Concatenates the the input clips into an output video for a given person
@@ -31,7 +49,7 @@ def concat(person, clips):
 	first = True
 	for clip in clips:
 		cmd = [get_setting("FFMPEG_BINARY"), "-y",
-			"-i", "clips/" + person + "/" + clip + "/1.mp4",
+			"-i", clips_path + "/" + person + "/" + clip + "/1.mp4",
 			"-c", "copy", "-bsf:v",  "h264_mp4toannexb",
 			"-f", "mpegts", 
 			"workspacets/" + clip + ".ts"]   
@@ -52,7 +70,7 @@ def concat(person, clips):
 	  "-i", concat_param,
 	  "-c", "copy",
 	  "-bsf:a", "aac_adtstoasc",
-	  "output/tmp.mp4"]
+	  output_folder + "/tmp.mp4"]
 	
 	subprocess_call(fcmd, False)
 
@@ -73,22 +91,31 @@ def normalize(clip):
 	  clip]   
 
 	subprocess_call(cmd, False)
-	if os.path.exists("output/they-say.mp4"):
-		os.remove("output/they-say.mp4")
-	os.rename("output/normalized-tmp.mp4", "output/they-say.mp4")
-	os.remove("output/tmp.mp4")
+	if os.path.exists(output_folder + "/they-say.mp4"):
+		os.remove(output_folder + "/they-say.mp4")
+	os.rename(output_folder + "/normalized-tmp.mp4", output_folder + "/they-say.mp4")
+	os.remove(output_folder + "/tmp.mp4")
 
 def main(argv) :
-	if(len(sys.argv) != 3): 
-		print('Usage: make-them-say.py person statement')
+	if(len(sys.argv) != 5): 
+		print('Usage: make-them-say.py clips_path output_folder person statement')
 		sys.exit(2)
 
-	phrase = os.path.splitext(sys.argv[2])[0]
+	global clips_path
+	global output_folder
+
+	clips_path = sys.argv[1]
+	output_folder = sys.argv[2]
+
+	assure_path_exists(clips_path)
+	assure_path_exists(output_folder)
+
+	phrase = os.path.splitext(sys.argv[4])[0]
 	words = phrase.split()
 
-	concat(sys.argv[1].lower(), words)
-	normalize("output/tmp.mp4")
-	audio = AudioSegment.from_file("output/they-say.mp4", "mp4")
-	audio.export("output/they-say.wav", "wav")
+	concat(sys.argv[3].lower(), words)
+	normalize(output_folder + "/tmp.mp4")
+	audio = AudioSegment.from_file(output_folder + "/they-say.mp4", "mp4")
+	audio.export(output_folder + "/they-say.wav", "wav")
 if __name__ == "__main__" :
 	main(sys.argv[1:])

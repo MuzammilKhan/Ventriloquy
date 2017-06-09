@@ -26,6 +26,7 @@ num_threads = 0 # will be set dynamically by detectCPUs()
 special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"', '.'] # used later to detect special characters
 basename = ""
 person = ""
+output_folder = ""
 
 ######################################################################
 # classes and functions
@@ -102,7 +103,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 		t4 = time.time()
 		print("thread " + str(self.threadID) + " starting to extract_words")
 		#clip audio into word clips
-		extract_words(sys.argv[2], good_timestamps, 0, self.threadID)
+		extract_words(sys.argv[3], good_timestamps, 0, self.threadID)
 		t5 = time.time()
 		print("thread " + str(self.threadID) + " finished extract_words. time: " + str(t5-t4))
 
@@ -239,13 +240,13 @@ def extract_words(orig_clip, good_timestamps, offset, ID):
 				break
 
 		if no_special_char:
-			path = "clips/" + person + "/" + word.lower() + "/" + "thread" + str(ID) + "_"
+			path = output_folder + "/" + person + "/" + word.lower() + "/" + "thread" + str(ID) + "_"
 			assure_path_exists(path)
 			num_clips = len(glob.glob(path + "*")) # get num of clips already in folder, to avoid overwiting
 			ffmpeg_extract_subclip(orig_clip, start, end, targetname=(path + str(num_clips + 1) + ".mp4"))
 
 def remove_extra_clips():
-	path = "clips/" + person + "/"
+	path = output_folder + "/" + person + "/"
 	assure_path_exists(path)
 	subdirectories = os.listdir(path)
 	for subdir in subdirectories:
@@ -276,9 +277,10 @@ def main(argv) :
 	print(sys.argv[0])
 	print(sys.argv[1])
 	print(sys.argv[2])
+	print(sys.argv[3])
 
-	if(len(sys.argv) != 3): #TODO: change this to allow input transcript
-		print('Usage: speech2text.py person inputfile')
+	if(len(sys.argv) != 4): #TODO: change this to allow input transcript
+		print('Usage: speech2text.py output_folder person inputfile')
 		sys.exit(2)
 
 	num_threads = detectCPUs()
@@ -288,18 +290,21 @@ def main(argv) :
 	global basename
 	global person
 	global clip_len
+	global output_folder
+
+	output_folder = sys.argv[1]
 
 	#open input file and convert to flac (assume  test file in same directory for now)
-	basename = os.path.splitext(os.path.basename(sys.argv[2]))[0]
-	file_ext = os.path.splitext(sys.argv[2])[1][1:]
+	basename = os.path.splitext(os.path.basename(sys.argv[3]))[0]
+	file_ext = os.path.splitext(sys.argv[3])[1][1:]
 
 	print(basename)
 	print(file_ext)
 
-	audio_init = AudioSegment.from_file(sys.argv[2], file_ext) #assuming input files are all supported by ffmpeg
+	audio_init = AudioSegment.from_file(sys.argv[3], file_ext) #assuming input files are all supported by ffmpeg
 	audio_chunk = AudioSegment.silent(duration=0)
 	end_time = len(audio_init)
-	person = sys.argv[1].lower()
+	person = sys.argv[2].lower()
 
 	if os.path.exists("workspace"):
 		shutil.rmtree("workspace") #clear workspace and remake it
