@@ -49,11 +49,13 @@ def detectCPUs():
 	return 1 # Default
 
 class myThread (threading.Thread): #used this as guide: https://www.tutorialspoint.com/python3/python_multithreading.htm
-	def __init__(self, threadID, audio, start_time):
+	def __init__(self, threadID, audio, start_time, video_path, media_path):
 		threading.Thread.__init__(self)
 		self.threadID = threadID
 		self.audio = audio
 		self.start_time = start_time
+		self.video_path = video_path
+		self.media_path = media_path
 
 	def run(self):
 		audio_len = len(self.audio)
@@ -67,7 +69,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 			start = str("%d" % (float(self.threadID*audio_len + i) / 1000))
 			end = str("%d" % (float(self.threadID*audio_len + end_time) / 1000))
 
-			path = "workspace/" + basename + "_" + start + "-" + end + ".wav"
+			path = self.media_path + "workspace/" + basename + "_" + start + "-" + end + ".wav"
 			audio_chunk.export(path, format="wav")
 
 		for j in range(self.threadID, audio_len, increment_by):
@@ -75,7 +77,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 			end_time = audio_len if(j + 60000 > audio_len) else j+60000
 			start = str("%d" % (float(self.threadID*audio_len + j) / 1000))
 			end = str("%d" % (float(self.threadID*audio_len + end_time) / 1000))
-			path = "workspace/" + basename + "_" + start + "-" + end + ".wav"
+			path = self.media_path + "workspace/" + basename + "_" + start + "-" + end + ".wav"
 
 			#Use Watson Speech API on audio chunk
 			with open(path, 'rb') as audio:
@@ -91,9 +93,9 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 													word_alternatives_threshold=0.0 )
 
 				#dump response to a json file if we want to check it later then open it
-				with open('speech-snippets/' + basename + "_" + start + "-" + end + '.json', 'w') as data_file:
+				with open(self.media_path + 'speech-snippets/' + basename + "_" + start + "-" + end + '.json', 'w') as data_file:
 					json.dump(stt_result, data_file, indent=1)
-				with open('speech-snippets/' + basename + "_" + start + "-" + end + '.json') as data_file:
+				with open(self.media_path + 'speech-snippets/' + basename + "_" + start + "-" + end + '.json') as data_file:
 					get_good_timestamps(good_timestamps, data_file, float(self.threadID*audio_len + j) / 1000)
 
 				t3 = time.time()
@@ -102,7 +104,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 		t4 = time.time()
 		print("thread " + str(self.threadID) + " starting to extract_words")
 		#clip audio into word clips
-		extract_words(sys.argv[2], good_timestamps, 0, self.threadID)
+		extract_words(self.video_path, good_timestamps, 0, self.threadID, self.media_path)
 		t5 = time.time()
 		print("thread " + str(self.threadID) + " finished extract_words. time: " + str(t5-t4))
 
@@ -213,7 +215,7 @@ def assure_path_exists(path):
 	if not os.path.exists(dir):
 		os.makedirs(dir)
 
-def extract_words(orig_clip, good_timestamps, offset, ID):
+def extract_words(orig_clip, good_timestamps, offset, ID, workspace_path):
 	"""
 	Extract word clips from the input audio clip.
 
@@ -239,13 +241,13 @@ def extract_words(orig_clip, good_timestamps, offset, ID):
 				break
 
 		if no_special_char:
-			path = "clips/" + person + "/" + word.lower() + "/" + "thread" + str(ID) + "_"
+			path = workspace_path + "clips/" + person + "/" + word.lower() + "/" + "thread" + str(ID) + "_"
 			assure_path_exists(path)
 			num_clips = len(glob.glob(path + "*")) # get num of clips already in folder, to avoid overwiting
 			ffmpeg_extract_subclip(orig_clip, start, end, targetname=(path + str(num_clips + 1) + ".mp4"))
 
-def remove_extra_clips():
-	path = "clips/" + person + "/"
+def remove_extra_clips(workspace_path):
+	path = workspace_path + "clips/" + person + "/"
 	assure_path_exists(path)
 	subdirectories = os.listdir(path)
 	for subdir in subdirectories:
@@ -264,7 +266,7 @@ def remove_extra_clips():
 
 
 
-def run(speaker, video_file) :
+def run(speaker, video_file, workspace_path) :
 	"""
 	Run to generate clips on the server side
 	"""
@@ -287,11 +289,11 @@ def run(speaker, video_file) :
 	end_time = len(audio_init)
 	person = speaker.lower()
 
-	if os.path.exists("workspace"):
-		shutil.rmtree("workspace") #clear workspace and remake it
-		os.makedirs("workspace")
+	if os.path.exists(workspace_path + "workspace"):
+		shutil.rmtree(workspace_path + "workspace") #clear workspace and remake it
+		os.makedirs(workspace_path + "workspace")
 	else:
-		os.makedirs("workspace")
+		os.makedirs(workspace_path + "workspace")
 
 	clip_len = end_time / num_threads
 	threads = []
@@ -303,76 +305,20 @@ def run(speaker, video_file) :
 		end = end_time if (i == num_threads -1) else (i+1) * clip_len -1
 
 		audio_chunk = audio_init[start_time: end]
-		thread = myThread(i, audio_chunk, start_time)
+		thread = myThread(i, audio_chunk, start_time, video_file, workspace_path)
 		thread.start()
 		threads.append(thread)
 
 	for t in threads:
 		t.join()
 
-	remove_extra_clips() # threads may have created word duplicates because they have been embarassingly parallelized.
+	remove_extra_clips(workspace_path) # threads may have created word duplicates because they have been embarassingly parallelized.
 	tlast = time.time()
 
 	print("Total elapsed time: " + str(tlast-t0))
 	# os.remove("/workspace")
 	# os.remove("/workspacets")
 
-######################################################################
-# main
-######################################################################
 
-def main(argv) :
-	t0 = time.time()
-
-	if(len(sys.argv) != 3): #TODO: change this to allow input transcript
-		print('Usage: speech2text.py person inputfile')
-		sys.exit(2)
-
-	num_threads = detectCPUs()
-	print("Using " + str(num_threads) + " threads...")
-
-	#modifying global variables
-	global basename
-	global person
-	global clip_len
-
-	#open input file and convert to flac (assume  test file in same directory for now)
-	basename = os.path.splitext(os.path.basename(sys.argv[2]))[0]
-	file_ext = os.path.splitext(sys.argv[2])[1][1:]
-	audio_init = AudioSegment.from_file(sys.argv[2], file_ext) #assuming input files are all supported by ffmpeg
-	audio_chunk = AudioSegment.silent(duration=0)
-	end_time = len(audio_init)
-	person = sys.argv[1].lower()
-
-	if os.path.exists("workspace"):
-		shutil.rmtree("workspace") #clear workspace and remake it
-		os.makedirs("workspace")
-	else:
-		os.makedirs("workspace")
-
-	clip_len = end_time / num_threads
-	threads = []
-	start_time = 0
-	end = 0
-
-	for i in range(0,num_threads):
-		start_time = i * clip_len
-		end = end_time if (i == num_threads -1) else (i+1) * clip_len -1
-
-		audio_chunk = audio_init[start_time: end]
-		thread = myThread(i, audio_chunk, start_time)
-		thread.start()
-		threads.append(thread)
-
-	for t in threads:
-		t.join()
-
-	remove_extra_clips() # threads may have created word duplicates because they have been embarassingly parallelized.
-	tlast = time.time()
-
-	print("Total elapsed time: " + str(tlast-t0))
-	# os.remove("/workspace")
-	# os.remove("/workspacets")
-
-if __name__ == "__main__" :
-	main(sys.argv[1:])
+# if __name__ == "__main__" :
+	# main(sys.argv[1:])

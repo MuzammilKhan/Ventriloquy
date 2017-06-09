@@ -59,9 +59,9 @@
     </div>
 
     <div align="center">
-      <form id="file-form" action="{% url 'uploaded' %}" method="POST">
+      <form id="file-form" action="{% url 'uploaded' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <input  class="form-control" type="file" id="file-select" name="photos[]" />
+        <input  class="form-control" type="file" id="file-select" name="payload" />
         <button class="btn btn-success btn-sm" type="submit" id="upload-button">Upload</button>
         <br>
 

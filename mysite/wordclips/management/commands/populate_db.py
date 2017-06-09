@@ -23,8 +23,20 @@ class Command(BaseCommand):
         CLIPS_DIR = settings.SITE_ROOT + '/../media/clips/'
         print(CLIPS_DIR)
         # print('clips path: ' + CLIPS_DIR)
-        spk_first_name = "Barack"
-        spk_last_name = "Obama"
+        spk_first_name = "barack"
+        spk_last_name = "obama"
+        spk = Speaker(first_name=spk_first_name, last_name=spk_last_name)
+        spk.save()
+        for p in os.listdir(CLIPS_DIR):
+            if os.path.isdir(os.path.abspath(CLIPS_DIR + p)):
+                # Create clips in database
+                w = Wordclip(name=p, soundpath=os.path.abspath(CLIPS_DIR + p))
+                w.save()
+                w.speaker = spk
+                w.save()
+
+        spk_first_name = "donald"
+        spk_last_name = "trump"
         spk = Speaker(first_name=spk_first_name, last_name=spk_last_name)
         spk.save()
         for p in os.listdir(CLIPS_DIR):

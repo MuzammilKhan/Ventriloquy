@@ -8,6 +8,12 @@ from wordclips.models import Wordclip
 
 from django.conf import settings
 
+# for calling scripts outside the project
+# sys.path.append("../../..")
+
+# from wordclips.ventriloquy.make_them_say import main
+from .make_them_say import main
+
 # def find(name, path):
 #     for root, dirs, files in os.walk(path):
 #         if name in files:
@@ -114,4 +120,12 @@ class Ventriloquy:
 
 		combined_audio.export(APP_ROOT + "/../static/they-say.wav", format="wav")
 		# success
+		return 0, []
+
+	def say(self, words):
+		sentence = ""
+		for w in words:
+			sentence += ' '
+			sentence += w
+		main([settings.MEDIA_ROOT, settings.MEDIA_ROOT+'/../../static', 'trump', sentence])
 		return 0, []

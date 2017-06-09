@@ -27,6 +27,10 @@ def search_in_database(request):
     # Obtain word list
     # print('@@@@ FLAG ')
     words = request.GET.get('Input_text', '')
+
+    # Get the speaker
+    speaker = request.GET.get('Person', '')
+
     # print('receive: ' + wl)
 
     # Input parser
@@ -40,7 +44,8 @@ def search_in_database(request):
 
 
     # Create the generated video using the clips
-    err, missing = ventriloquy.create_audio(wl)
+    # err, missing = ventriloquy.create_audio(wl)
+    err, missing = ventriloquy.say(wl)
     # Check if there is any missing word in the db
     if err != 0:
         t = get_template('wordclips/error.html')
