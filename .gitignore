@@ -98,5 +98,4 @@ target/
 
 # media file
 speech-snippets/
-
-backup/
+backup/make_them_say.py
