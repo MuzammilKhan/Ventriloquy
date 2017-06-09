@@ -27,6 +27,7 @@ special_chars = ['<', '>', '\\', '/', '*', ':', '?', '\"', '.'] # used later to 
 basename = ""
 person = ""
 output_folder = ""
+input_file = ""
 
 ######################################################################
 # classes and functions
@@ -103,7 +104,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 		t4 = time.time()
 		print("thread " + str(self.threadID) + " starting to extract_words")
 		#clip audio into word clips
-		extract_words(sys.argv[3], good_timestamps, 0, self.threadID)
+		extract_words(input_file, good_timestamps, 0, self.threadID)
 		t5 = time.time()
 		print("thread " + str(self.threadID) + " finished extract_words. time: " + str(t5-t4))
 
@@ -269,19 +270,10 @@ def remove_extra_clips():
 					os.remove(path + subdir + "/1.mp4")
 				os.rename(biggest_file_path, path + subdir + "/1.mp4")
 
-######################################################################
-# main
-######################################################################
-
-def main(argv) :
+def run(argv):
 	t0 = time.time()
 
-	print(sys.argv[0])
-	print(sys.argv[1])
-	print(sys.argv[2])
-	print(sys.argv[3])
-
-	if(len(sys.argv) != 4): #TODO: change this to allow input transcript
+	if(len(argv) != 3):
 		print('Usage: speech2text.py output_folder person inputfile')
 		sys.exit(2)
 
@@ -293,20 +285,19 @@ def main(argv) :
 	global person
 	global clip_len
 	global output_folder
+	global input_file
 
-	output_folder = sys.argv[1]
+	output_folder = argv[0]
+	input_file = argv[2]
 
 	#open input file and convert to flac (assume  test file in same directory for now)
-	basename = os.path.splitext(os.path.basename(sys.argv[3]))[0]
-	file_ext = os.path.splitext(sys.argv[3])[1][1:]
+	basename = os.path.splitext(os.path.basename(argv[2]))[0]
+	file_ext = os.path.splitext(argv[2])[1][1:]
 
-	print(basename)
-	print(file_ext)
-
-	audio_init = AudioSegment.from_file(sys.argv[3], file_ext) #assuming input files are all supported by ffmpeg
+	audio_init = AudioSegment.from_file(argv[2], file_ext) #assuming input files are all supported by ffmpeg
 	audio_chunk = AudioSegment.silent(duration=0)
 	end_time = len(audio_init)
-	person = sys.argv[2].lower()
+	person = argv[1].lower()
 
 	if os.path.exists("workspace"):
 		shutil.rmtree("workspace") #clear workspace and remake it
@@ -335,8 +326,13 @@ def main(argv) :
 	tlast = time.time()
 
 	print("Total elapsed time: " + str(tlast-t0))
-	# os.remove("/workspace")
-	# os.remove("/workspacets")
+
+######################################################################
+# main
+######################################################################
+
+def main(argv) :
+	run(argv)
 
 if __name__ == "__main__" :
 	main(sys.argv[1:])

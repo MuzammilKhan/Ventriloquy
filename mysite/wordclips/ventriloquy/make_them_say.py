@@ -57,7 +57,7 @@ def concat(person, clips):
 		try:
 			subprocess_call(cmd, False, False)
 		except:
-			print("Oops!" + person + "doesn't know the word: " + clip + " :(")
+			print "Oops! " + person.title() + " doesn't know the word '" + clip + "'"
 			sys.exit()
 
 		if first:
@@ -96,10 +96,7 @@ def normalize(clip):
 	os.rename(output_folder + "/normalized-tmp.mp4", output_folder + "/they-say.mp4")
 	os.remove(output_folder + "/tmp.mp4")
 
-def main(argv) :
-
-	for arg in argv:
-		print(arg)
+def run(argv):
 	if(len(argv) != 4):
 		print('Usage: make-them-say.py clips_path output_folder person statement')
 		sys.exit(len(argv))
@@ -120,5 +117,9 @@ def main(argv) :
 	normalize(output_folder + "/tmp.mp4")
 	audio = AudioSegment.from_file(output_folder + "/they-say.mp4", "mp4")
 	audio.export(output_folder + "/they-say.wav", "wav")
+
+def main(argv) :
+	run(argv)
+
 if __name__ == "__main__" :
-	main(argv[1:])
+	main(sys.argv[1:])
