@@ -104,7 +104,7 @@ class myThread (threading.Thread): #used this as guide: https://www.tutorialspoi
 		t4 = time.time()
 		print("thread " + str(self.threadID) + " starting to extract_words")
 		#clip audio into word clips
-		extract_words(input_file, good_timestamps, 0, self.threadID)
+		extract_words(input_file, good_timestamps, self.threadID)
 		t5 = time.time()
 		print("thread " + str(self.threadID) + " finished extract_words. time: " + str(t5-t4))
 
@@ -215,7 +215,7 @@ def assure_path_exists(path):
 	if not os.path.exists(dir):
 		os.makedirs(dir)
 
-def extract_words(orig_clip, good_timestamps, offset, ID):
+def extract_words(orig_clip, good_timestamps, ID):
 	"""
 	Extract word clips from the input audio clip.
 
@@ -223,15 +223,14 @@ def extract_words(orig_clip, good_timestamps, offset, ID):
 	--------------------
 		orig_clip			-- 	The input audio clip that we want to extract word clips from
 		good_timestamps		-- 	The timestamps of the words
-		offset				--  How many seconds have passed
 
 	Returns
 	--------------------
 		nothing
 	"""
 	for word, val in good_timestamps.items():
-		start = val[0] + offset
-		end = val[1] + offset
+		start = val[0]
+		end = val[1]
 
 		#check for special chars b/c windows doesn't allow these in filenames
 		no_special_char = True
