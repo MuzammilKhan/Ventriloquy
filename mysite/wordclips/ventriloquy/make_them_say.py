@@ -122,7 +122,7 @@ def run(argv):
 	return rtn
 
 def main(argv) :
-	print(run(argv))
+	run(argv)
 
 if __name__ == "__main__" :
 	main(sys.argv[1:])
