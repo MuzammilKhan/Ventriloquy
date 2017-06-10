@@ -57,7 +57,7 @@ def concat(person, clips):
 		try:
 			subprocess_call(cmd, False, False)
 		except:
-			print "Oops! " + person.title() + " doesn't know the word '" + clip + "'"
+			print ("Oops! " + person.title() + " doesn't know the word '" + clip + "'")
 			return clip
 
 		if first:
