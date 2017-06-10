@@ -1,0 +1,241 @@
+{
+ "results": [
+  {
+   "word_alternatives": [
+    {
+     "start_time": 0.3, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "I"
+      }
+     ], 
+     "end_time": 0.49
+    }, 
+    {
+     "start_time": 0.49, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "believe"
+      }
+     ], 
+     "end_time": 0.85
+    }, 
+    {
+     "start_time": 0.85, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "we"
+      }
+     ], 
+     "end_time": 0.98
+    }, 
+    {
+     "start_time": 0.98, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "can"
+      }
+     ], 
+     "end_time": 1.12
+    }, 
+    {
+     "start_time": 1.12, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "keep"
+      }
+     ], 
+     "end_time": 1.47
+    }, 
+    {
+     "start_time": 1.54, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "the"
+      }
+     ], 
+     "end_time": 1.64
+    }, 
+    {
+     "start_time": 1.64, 
+     "alternatives": [
+      {
+       "confidence": 0.9755, 
+       "word": "promise"
+      }, 
+      {
+       "confidence": 0.0245, 
+       "word": "promises"
+      }
+     ], 
+     "end_time": 2.17
+    }, 
+    {
+     "start_time": 2.17, 
+     "alternatives": [
+      {
+       "confidence": 1.0, 
+       "word": "of"
+      }
+     ], 
+     "end_time": 2.33
+    }, 
+    {
+     "start_time": 2.33, 
+     "alternatives": [
+      {
+       "confidence": 0.9706, 
+       "word": "our"
+      }, 
+      {
+       "confidence": 0.0294, 
+       "word": "are"
+      }
+     ], 
+     "end_time": 2.47
+    }, 
+    {
+     "start_time": 2.47, 
+     "alternatives": [
+      {
+       "confidence": 0.5675, 
+       "word": "founding"
+      }, 
+      {
+       "confidence": 0.1678, 
+       "word": "founders"
+      }, 
+      {
+       "confidence": 0.145, 
+       "word": "founder"
+      }, 
+      {
+       "confidence": 0.0604, 
+       "word": "family"
+      }, 
+      {
+       "confidence": 0.0521, 
+       "word": "found"
+      }, 
+      {
+       "confidence": 0.0067, 
+       "word": "founded"
+      }
+     ], 
+     "end_time": 2.97
+    }
+   ], 
+   "alternatives": [
+    {
+     "word_confidence": [
+      [
+       "I", 
+       1.0
+      ], 
+      [
+       "believe", 
+       1.0
+      ], 
+      [
+       "we", 
+       1.0
+      ], 
+      [
+       "can", 
+       1.0
+      ], 
+      [
+       "keep", 
+       1.0
+      ], 
+      [
+       "the", 
+       1.0
+      ], 
+      [
+       "promise", 
+       0.749
+      ], 
+      [
+       "of", 
+       1.0
+      ], 
+      [
+       "our", 
+       1.0
+      ], 
+      [
+       "founding", 
+       0.208
+      ]
+     ], 
+     "confidence": 0.797, 
+     "transcript": "I believe we can keep the promise of our founding ", 
+     "timestamps": [
+      [
+       "I", 
+       0.3, 
+       0.49
+      ], 
+      [
+       "believe", 
+       0.49, 
+       0.85
+      ], 
+      [
+       "we", 
+       0.85, 
+       0.98
+      ], 
+      [
+       "can", 
+       0.98, 
+       1.12
+      ], 
+      [
+       "keep", 
+       1.12, 
+       1.47
+      ], 
+      [
+       "the", 
+       1.54, 
+       1.64
+      ], 
+      [
+       "promise", 
+       1.64, 
+       2.17
+      ], 
+      [
+       "of", 
+       2.17, 
+       2.33
+      ], 
+      [
+       "our", 
+       2.33, 
+       2.47
+      ], 
+      [
+       "founding", 
+       2.47, 
+       2.97
+      ]
+     ]
+    }
+   ], 
+   "final": true
+  }
+ ], 
+ "result_index": 0, 
+ "warnings": [
+  "Unknown arguments: continuous."
+ ]
+}
