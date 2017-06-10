@@ -2,6 +2,7 @@
 ### clips
 *.wav
 *.mp4
+*.ts
 
 # Django Recommended
 *.egg-info
