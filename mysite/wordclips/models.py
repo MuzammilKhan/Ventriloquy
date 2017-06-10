@@ -6,15 +6,15 @@ class Speaker(models.Model):
     """
         Representing the speaker of a word
     """
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    firstname = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return self.first_name + ' ' + self.last_name
+        return self.firstname + ' ' + self.lastname
 
 
     def __str__(self):
-        return '%s %s' % (self.first_name, self.last_name)
+        return '%s %s' % (self.firstname, self.lastname)
 
 
 class Wordclip(models.Model):

@@ -30,6 +30,7 @@ def video_admin(request):
 
     # Obtain the keywords to search in the db
     clips_kw = request.GET.get('keyword', 'a')
+    speaker = request.GET.get('speaker_search', 'obama')
     APP_ROOT = os.path.abspath(os.path.dirname(wordclips.__file__))
     context = {}
 
@@ -57,16 +58,20 @@ def video_admin(request):
     # of the search of the keyword
     clip_paths = []
     # get a list of objects based on the search
-    ol = Wordclip.objects.filter(name__icontains=clips_kw)[0:10]
+    ol = Wordclip.objects.filter(name__icontains=clips_kw).filter(speaker__lastname=speaker)[0:10]
+
     for o in ol:
         # construct the full path
-        clip_path = settings.MEDIA_URL + o.name + "/1.wav"
+        # clip_path = settings.MEDIA_URL + o.name + "/1.wav"
+        # print(o.name + " " + o.speaker.firstname + " " + o.speaker.lastname)
         clip_paths.append(o)
         # print(clip_path)
 
     context = { 'clip_paths' : clip_paths,
                 'MEDIA_URL' : settings.MEDIA_URL,
-                'task_list' : task_list, }
+                'MEDIA_ROOT' : settings.MEDIA_ROOT,
+                'task_list' : task_list,
+                'speaker' : speaker, }
     return render(request, 'video_admin.html', context)
 
 
@@ -78,6 +83,9 @@ def uploaded(request):
 
     if request.method == 'POST' and request.FILES['payload']:
         myfile = request.FILES['payload']
+        speaker = request.POST.get('Person', 'obama')
+
+        print(speaker)
 
         # save to a different path
         # fs = FileSystemStorage(location=settings.MEDIA_URL + '../')
@@ -91,7 +99,7 @@ def uploaded(request):
         # print(fs.base_url) # relative path of the MEDIA_URL
         # print(fs.location) # complete path to the file
         # print ("Shit: "+ str(fs.location))
-        t = process.delay('obama', str(fs.location), filename)
+        t = process.delay(speaker, str(fs.location), filename)
         celery_task = CeleryTask(celery_task_id=t.id, celery_task_status = u'PROGRESS')
         celery_task.save()
 

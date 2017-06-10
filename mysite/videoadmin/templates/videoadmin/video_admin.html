@@ -31,11 +31,11 @@
   <div class="jumbotron">
     <h1>Search the clips in the database:</h1>
 
-    <p>
+    <div class="container">
       {% for c in clip_paths %}
       <div class="gallery">
         <video width="180" controls>
-        <source src="{{ MEDIA_URL }}{{ c.name }}/1.wav" type="audio/wav">
+        <source src="{{ MEDIA_URL }}{{speaker}}/{{ c.name }}/1.mp4" type="video/mp4">
         <!-- <source src="mov_bbb.ogg" type="video/ogg"> -->
         Your browser does not support HTML5 video.
         </video>
@@ -43,11 +43,16 @@
       </div>
       {% endfor %}
       <!-- TODO Add handler if nothing is in the DB  -->
-    </p>
+    </div>
 
-
+    <br>
+    <p>
     <div align="center">
       <form action="" method="get">
+        <select name="speaker_search" id="Person">
+          <option value="obama">Obama</option>
+          <option value="trump">Trump</option>
+        </select>
         <div id="content">
         <textarea class="form-control" name="keyword" id="ta" cols="30" placeholder="Click To Enter Text"></textarea>
         </div>
@@ -57,10 +62,17 @@
         <button  class="btn btn-success btn-sm" value="Search">Search</button>
       </form>
     </div>
+    </p>
 
     <div align="center">
+
       <form id="file-form" action="{% url 'uploaded' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <select name="Person" id="Person">
+          <option value="obama">Obama</option>
+          <option value="trump">Trump</option>
+        </select>
+        <br>
         <input  class="form-control" type="file" id="file-select" name="payload" />
         <button class="btn btn-success btn-sm" type="submit" id="upload-button">Upload</button>
         <br>

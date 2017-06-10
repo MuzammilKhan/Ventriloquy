@@ -20,12 +20,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Assuming the clips folder is under the app folder
         # print('app_path: ' + self.APP_ROOT)
-        CLIPS_DIR = settings.SITE_ROOT + '/../media/clips/'
-        print(CLIPS_DIR)
+
+
         # print('clips path: ' + CLIPS_DIR)
         spk_first_name = "barack"
         spk_last_name = "obama"
-        spk = Speaker(first_name=spk_first_name, last_name=spk_last_name)
+        CLIPS_DIR = settings.SITE_ROOT + '/../media/clips/' + spk_last_name + '/'
+        print(CLIPS_DIR)
+        spk = Speaker(firstname=spk_first_name, lastname=spk_last_name)
         spk.save()
         for p in os.listdir(CLIPS_DIR):
             if os.path.isdir(os.path.abspath(CLIPS_DIR + p)):
@@ -37,7 +39,9 @@ class Command(BaseCommand):
 
         spk_first_name = "donald"
         spk_last_name = "trump"
-        spk = Speaker(first_name=spk_first_name, last_name=spk_last_name)
+        CLIPS_DIR = settings.SITE_ROOT + '/../media/clips/' + spk_last_name + '/'
+        print(CLIPS_DIR)
+        spk = Speaker(firstname=spk_first_name, lastname=spk_last_name)
         spk.save()
         for p in os.listdir(CLIPS_DIR):
             if os.path.isdir(os.path.abspath(CLIPS_DIR + p)):
